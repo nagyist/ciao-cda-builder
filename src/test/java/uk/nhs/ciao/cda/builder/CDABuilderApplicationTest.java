@@ -1,6 +1,7 @@
 package uk.nhs.ciao.cda.builder;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -11,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Message;
+import org.apache.camel.Predicate;
 import org.apache.camel.Producer;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -26,12 +28,15 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Strings;
 import com.google.common.collect.Maps;
+import com.google.common.io.Closeables;
 
 import uk.nhs.ciao.camel.CamelApplicationRunner;
 import uk.nhs.ciao.camel.CamelApplicationRunner.AsyncExecution;
 import uk.nhs.ciao.configuration.CIAOConfig;
 import uk.nhs.ciao.configuration.impl.MemoryCipProperties;
+import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
 import static org.junit.Assert.*;
 
 
@@ -151,7 +156,20 @@ public class CDABuilderApplicationTest {
 				.createProducer();
 		final MockEndpoint endpoint = MockEndpoint.resolve(camelContext, "mock:output");
 		endpoint.expectedMessageCount(1);
-
+		endpoint.expectedMessagesMatches(new Predicate() {			
+			@Override
+			public boolean matches(final Exchange exchange) {
+				// For now just check that we get a non coded CDA document
+				final InputStream xml = exchange.getIn().getBody(InputStream.class);
+				try {
+					final ClinicalDocument template = new ClinicalDocument(xml);
+					return template.hasData() && !Strings.isNullOrEmpty(template.getNonXMLBodyText());
+				} finally {
+					Closeables.closeQuietly(xml);
+				}
+			}
+		});
+		
 		sendMessage(producer, getExampleJson());
 		
 		MockEndpoint.assertIsSatisfied(10, TimeUnit.SECONDS, endpoint);

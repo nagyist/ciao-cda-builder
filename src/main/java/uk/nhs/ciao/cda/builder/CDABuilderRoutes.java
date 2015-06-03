@@ -112,12 +112,9 @@ public class CDABuilderRoutes extends CIPRoutes {
 			from("jms:queue:" + inputQueue)
 			.id("cda-builder-" + name)
 			.doTry()
-				.marshal().json(JsonLibrary.Jackson, ParsedDocument.class)
+				.unmarshal().json(JsonLibrary.Jackson, ParsedDocument.class)
 				.log(LoggingLevel.INFO, LOGGER, "Unmarshalled incoming JSON document")
-				// TODO: include a builder processor and send the CDA document as output
-				// TODO: for now just re-marshal the original document and put that on the queue
-				.convertBodyTo(String.class)
-				.marshal().json(JsonLibrary.Jackson)
+				.bean(JsonToNonCodedCDADocumentTransformer.class, "serialise")
 				.to("jms:queue:" + outputQueue)
 			.doCatch(Exception.class)
 				.log(LoggingLevel.ERROR, LOGGER, "Exception while builder CDA document")

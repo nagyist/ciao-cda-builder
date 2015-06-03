@@ -11,12 +11,15 @@ public class JsonToNonCodedCDADocumentTransformer {
 	public ClinicalDocument transform(final ParsedDocument parsedDocument) {
 		final ClinicalDocument template = new ClinicalDocument();
 		
-		attachDocument(template, parsedDocument.getOriginalDocument());
+		// TODO: Map properties from parsed document
+		
+		attachOriginalDocument(template, parsedDocument);
 		
 		return template;
 	}
 	
-	private void attachDocument(final ClinicalDocument template, final Document originalDocument) {
+	private void attachOriginalDocument(final ClinicalDocument template, final ParsedDocument parsedDocument) {
+		final Document originalDocument = parsedDocument.getOriginalDocument();
 		if (originalDocument == null || originalDocument.isEmpty()) {
 			return;
 		}
