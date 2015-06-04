@@ -1,5 +1,7 @@
 package uk.nhs.ciao.cda.builder;
 
+import uk.nhs.ciao.docs.parser.Document;
+import uk.nhs.ciao.docs.parser.ParsedDocument;
 import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
 import uk.nhs.interoperability.payloads.vocabularies.internal.AttachmentType;
 

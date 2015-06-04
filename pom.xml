@@ -10,6 +10,7 @@
 	
 	<properties>
 		<ciao.core.version>0.0.1-SNAPSHOT</ciao.core.version>
+		<ciao-docs-parser.version>1.0.0-SNAPSHOT</ciao-docs-parser.version>
 		<itk.payloads.version>0.5-SNAPSHOT</itk.payloads.version>
 	</properties>
 	
@@ -22,6 +23,11 @@
 		<dependency>
 			<groupId>uk.nhs.interoperability</groupId>
 			<artifactId>ciao-core</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>ciao-docs-parser-model</artifactId>
 		</dependency>
 
 		<!-- For XML configuration / dependency injection -->
@@ -91,6 +97,12 @@
 				<groupId>uk.nhs.interoperability</groupId>
 				<artifactId>ciao-core</artifactId>
 				<version>${ciao.core.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>${project.groupId}</groupId>
+				<artifactId>ciao-docs-parser-model</artifactId>
+				<version>${ciao-docs-parser.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
