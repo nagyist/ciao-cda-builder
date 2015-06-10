@@ -2,9 +2,6 @@ package uk.nhs.ciao.cda.builder.json;
 
 import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
 
-import com.fasterxml.jackson.core.JsonParser.Feature;
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 
@@ -21,11 +18,7 @@ public class Example {
 	}
 	
 	public void run() throws Exception {
-		final ObjectMapper mapper = new ObjectMapper();
-		mapper.registerModule(new CDABuilderModule());
-		mapper.enable(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY);
-		mapper.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_PROPERTIES);
-		mapper.enable(Feature.ALLOW_COMMENTS);
+		final ObjectMapper mapper = new ObjectMapperConfigurator().createObjectMapper();
 		
 		final ObjectReader reader = mapper.reader(CDABuilderDocument.class);
 		

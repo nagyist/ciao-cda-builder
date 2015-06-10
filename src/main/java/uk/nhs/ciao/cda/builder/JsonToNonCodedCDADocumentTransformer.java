@@ -1,34 +1,28 @@
 package uk.nhs.ciao.cda.builder;
 
-import uk.nhs.ciao.docs.parser.Document;
-import uk.nhs.ciao.docs.parser.ParsedDocument;
+import java.io.IOException;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Preconditions;
+
+import uk.nhs.ciao.cda.builder.json.CDABuilderDocument;
+import uk.nhs.interoperability.payloads.exceptions.MissingMandatoryFieldException;
 import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
-import uk.nhs.interoperability.payloads.vocabularies.internal.AttachmentType;
 
 public class JsonToNonCodedCDADocumentTransformer {
-	public String serialise(final ParsedDocument parsedDocument) {
-		return transform(parsedDocument).serialise();
+	private final ObjectMapper objectMapper;
+	
+	public JsonToNonCodedCDADocumentTransformer(final ObjectMapper objectMapper) {
+		this.objectMapper = Preconditions.checkNotNull(objectMapper);
 	}
 	
-	public ClinicalDocument transform(final ParsedDocument parsedDocument) {
-		final ClinicalDocument template = new ClinicalDocument();
-		
-		// TODO: Map properties from parsed document
-		
-		attachOriginalDocument(template, parsedDocument);
-		
-		return template;
+	public String serialise(final String json) throws JsonProcessingException, IOException, MissingMandatoryFieldException {
+		return transform(json).serialise();
 	}
 	
-	private void attachOriginalDocument(final ClinicalDocument template, final ParsedDocument parsedDocument) {
-		final Document originalDocument = parsedDocument.getOriginalDocument();
-		if (originalDocument == null || originalDocument.isEmpty()) {
-			return;
-		}
-		
-		// Non XML Body
-		template.setNonXMLBodyType(AttachmentType.Base64.code);
-		template.setNonXMLBodyMediaType(originalDocument.getMediaType());
-		template.setNonXMLBodyText(originalDocument.getBase64Content());
+	public ClinicalDocument transform(final String json) throws JsonProcessingException, IOException, MissingMandatoryFieldException {
+		final CDABuilderDocument document = objectMapper.readValue(json, CDABuilderDocument.class);
+		return document.createClinicalDocument();
 	}
 }

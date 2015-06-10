@@ -7,6 +7,10 @@
 	<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer">
 	   <property name="properties" ref="ciaoProperties" />
 	</bean>
+
+	<bean id="objectMapperConfigurator" class="uk.nhs.ciao.cda.builder.json.ObjectMapperConfigurator" />
+	<bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"
+		factory-bean="objectMapperConfigurator" factory-method="createObjectMapper" />
 	
 	<!-- Select 'dynamic' spring imports - determined via CIAO properties -->
 	<import resource="classpath*:META-INF/spring/processors/${processorConfig}.xml"/>

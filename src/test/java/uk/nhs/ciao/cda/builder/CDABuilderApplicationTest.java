@@ -3,7 +3,6 @@ package uk.nhs.ciao.cda.builder;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -27,17 +26,14 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Strings;
-import com.google.common.collect.Maps;
+import com.google.common.io.ByteStreams;
 import com.google.common.io.Closeables;
 
 import uk.nhs.ciao.camel.CamelApplicationRunner;
 import uk.nhs.ciao.camel.CamelApplicationRunner.AsyncExecution;
 import uk.nhs.ciao.configuration.CIAOConfig;
 import uk.nhs.ciao.configuration.impl.MemoryCipProperties;
-import uk.nhs.ciao.docs.parser.Document;
-import uk.nhs.ciao.docs.parser.ParsedDocument;
 import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
 import static org.junit.Assert.*;
 
@@ -55,7 +51,6 @@ public class CDABuilderApplicationTest {
 	private ExecutorService executorService;
 	private CDABuilderApplication application;
 	private AsyncExecution execution;
-	private ObjectMapper objectMapper;
 	
 	@Before
 	public void setup() throws Exception {
@@ -63,7 +58,6 @@ public class CDABuilderApplicationTest {
 		application = new CDABuilderApplication(ciaoConfig);
 		
 		executorService = Executors.newSingleThreadExecutor();
-		objectMapper = new ObjectMapper();
 	}
 	
 	private CIAOConfig setupCiaoConfig() throws IOException {
@@ -185,12 +179,11 @@ public class CDABuilderApplicationTest {
 	}
 	
 	private String getExampleJson() throws Exception {
-		final Document originalDocument = new Document("example.pdf", new byte[]{1, 2, 3, 4, 5});
-		final Map<String, Object> properties = Maps.newLinkedHashMap();
-		properties.put("key1", "value1");
-		properties.put("key2", "value2");
-		
-		final ParsedDocument parsedDocument = new ParsedDocument(originalDocument, properties);
-		return objectMapper.writeValueAsString(parsedDocument);
+		InputStream in = new ClassPathResource("/example.json", getClass()).getInputStream();
+		try {
+			return new String(ByteStreams.toByteArray(in));
+		} finally {
+			Closeables.closeQuietly(in);
+		}
 	}
 }

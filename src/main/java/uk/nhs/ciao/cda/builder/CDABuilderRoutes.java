@@ -1,14 +1,12 @@
 package uk.nhs.ciao.cda.builder;
 
 import org.apache.camel.LoggingLevel;
-import org.apache.camel.model.dataformat.JsonLibrary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import uk.nhs.ciao.CIPRoutes;
 import uk.nhs.ciao.camel.CamelApplication;
 import uk.nhs.ciao.configuration.CIAOConfig;
-import uk.nhs.ciao.docs.parser.ParsedDocument;
 import uk.nhs.ciao.exceptions.CIAOConfigurationException;
 
 /**
@@ -73,6 +71,7 @@ public class CDABuilderRoutes extends CIPRoutes {
 	private class CDABuilderRouteBuilder {
 		private final String name;
 		private final String inputQueue;
+		private final String processorId;
 		private final String outputQueue;
 		
 		/**
@@ -84,6 +83,7 @@ public class CDABuilderRoutes extends CIPRoutes {
 		public CDABuilderRouteBuilder(final String name, final CIAOConfig config) throws CIAOConfigurationException {
 			this.name = name;
 			this.inputQueue = findProperty(config, "inputQueue");
+			this.processorId = findProperty(config, "processorId");
 			this.outputQueue = findProperty(config, "outputQueue");
 		}
 		
@@ -113,9 +113,8 @@ public class CDABuilderRoutes extends CIPRoutes {
 			from("jms:queue:" + inputQueue)
 			.id("cda-builder-" + name)
 			.doTry()
-				.unmarshal().json(JsonLibrary.Jackson, ParsedDocument.class)
 				.log(LoggingLevel.INFO, LOGGER, "Unmarshalled incoming JSON document")
-				.bean(JsonToNonCodedCDADocumentTransformer.class, "serialise")
+				.beanRef(processorId, "serialise")
 				.to("jms:queue:" + outputQueue)
 			.doCatch(Exception.class)
 				.log(LoggingLevel.ERROR, LOGGER, "Exception while builder CDA document")
