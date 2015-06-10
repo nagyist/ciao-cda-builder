@@ -45,7 +45,7 @@ public class TestCDADoc {
 		// Non XML Body
 		template.setNonXMLBodyType(AttachmentType.Base64.code);
 		template.setNonXMLBodyMediaType("text/xml");
-		String data = FileLoader.loadFile(TestCDADoc.class.getResourceAsStream("attachment.txt"));
+		String data = FileLoader.loadFile(TestCDADoc.class.getResourceAsStream("/attachment.txt"));
 		// Using the standard Java 6 base64 encoder
 		String base64data = Base64.encodeBase64String(data.getBytes());
 		template.setNonXMLBodyText(base64data);
