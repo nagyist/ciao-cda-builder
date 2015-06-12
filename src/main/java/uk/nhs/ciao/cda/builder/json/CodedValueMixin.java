@@ -16,16 +16,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 // @JsonCreater will only work on top-level classes - cannot be an inner class
 abstract class CodedValueMixin implements DisabledAutoDetectMixin {
-	@JsonCreator
-	CodedValueMixin(@JsonProperty("code") String code,
-			@JsonProperty("displayName") String displayName,
-			@JsonProperty("oid") String oid) {
-		
-	}
+	@JsonCreator public CodedValueMixin(@JsonProperty("code") String code,
+			@JsonProperty("displayName") String displayName) {}
 	
 	@JsonProperty abstract String getCode();
 	@JsonProperty abstract String getDisplayName();
 	@JsonProperty("oid") abstract String getOID();
+	@JsonProperty("oid") abstract void setOID(String value);
 	@JsonProperty abstract String getReference();
-	@JsonProperty abstract void setReference(String reference);
+	@JsonProperty abstract void setReference(String value);
 }

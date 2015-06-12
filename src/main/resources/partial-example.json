@@ -1,0 +1,120 @@
+{
+	"properties" : {
+	
+		"documentTitle": "Report",
+		"documentType": "229059009",
+		"documentEffectiveTime": "201506081546",
+		"documentSetId": "123678-1237-123671823-1782",
+		"documentVersionNumber": 1,
+
+		"patientTitle": "Mr",
+	    "patientGivenName": "Mark",
+	    "patientFamilyName": "Smith",
+	    
+		"patientBirthDate": "29800101",
+		"patientNHSNo": "123456789",
+		"patientNHSNoIsTraced": true,
+		"patientGender": "m",
+		
+		"patientAddressLine": "20 Somewhere Drive",
+		"patientAddressCity": "Leeds",
+		"patientAddressPostcode": "LS1 4HT",
+		"patientAddressUse": "PHYS",
+		
+		"patientTelephone": "0123657276",
+		"patientMobile": "0153625536",
+		"usualGPOrgName": "GpOrg",
+		"usualGPODSCode": "GP code",
+		"usualGPTelephone": "1235456726",
+		"usualGPFax": "015263562",
+		"usualGPAddressLine": "17 Park Road", // Can add other properties for address
+		"timeAuthored": "20150101120000",
+		"documentAuthorAddressLine": "27 Over The Rainbow", // more address properties
+		"documentAuthorRole": "NR0050",
+		"documentAuthorSDSID": "sdsid",
+		"documentAuthorSDSRoleID": "sds role",
+		"documentAuthorTelephone": "0123253427",
+		"documentAuthorTitle": "Mr",
+	    "documentAuthorGivenName": "Someone",
+	    "documentAuthorFamilyName": "Something",
+		"documentAuthorOrganisationODSID": "auth org osid",
+		"documentAuthorOrganisationName": "auth org name",
+		"dataEntererSDSID": "enter sdsis",
+		"dataEntererSDSRoleID": "enter sds role",
+		"dataEntererTitle": "Mr",
+	    "dataEntererGivenName": "Somebody",
+	    "dataEntererFamilyName": "Else",
+		"custodianODSCode": "cust ods code",
+		"custodianOrganisationName": "cust org name",
+		
+		"recipientTitle": "Mr",
+		"recipientGivenName": "Target",
+		"recipientFamilyName": "Something",
+		"recipientAddressLine": "1 Target Drive",
+		"recipientOdsCode": "ods code",
+		"recipientOrganisationName": "org name",
+		
+		"copyRecipientTitle": "Mr",
+		"copyRecipientGivenName": "Copy",
+		"copyRecipientFamilyName": "Target",
+		"copyRecipientAddressLine": "12 Copy Street",
+		"copyRecipientOdsCode": "ods code",
+		"copyRecipientOrganisationName": "org name",
+		
+		"authenticatorSDSID": "",
+		"authenticatorSDSRoleID": "",
+		"authenticatorTitle": "Mr",
+		"authenticatorGivenName": "Auth",
+		"authenticatorFamilyName": "Something",		
+		"authenticatedTime": "20150906120000",
+
+		"participantTitle": "Mr",
+		"participantGivenName": "Participant",
+		"participantFamilyName": "Something",
+		"participantSdsId": "part sdsid",
+		"participantSdsRoleId": "part sdsrole",
+		"participantAddressLine": "28 Participant Close",
+		"participantTelephone": "0123456737",
+		"participantOdsCode": "part ocd code",
+		"participantOrganisationName": "part org name",
+		"participantType": "DIS"/*,
+		
+		"eventCode": "some code",
+		"eventDisplayName": "some name",
+		"eventOid": "some oid",
+		"eventReference": "some ref",
+		
+		"eventType": "PCPR",
+		"eventEffectiveFromTime": "20150906120000",
+		"eventEffectiveToTime": "20150906160000",
+		
+		"eventPerformerTitle": "Mr",
+		"eventPerformerGivenName": "Event",
+		"eventPerformerFamilyName": "Performer",
+
+		"eventODSCode": "event org code",
+		"eventOrganisatioName": "event org name", // TODO: There is a typo here!
+		"consent": "425691002",
+		"encounterFromTime": "20150906120000",
+		"encounterToTime": "20150906160000",
+		
+		"encounterCode": "some code",
+		"encounterDisplayName": "some name",
+		"encounterOid": "some oid",
+		"encounterReference": "some ref",
+		
+		"encounterLocationCode": "some code",
+		"encounterLocationDisplayName": "some name",
+		"encounterLocationOid": "some oid",
+		"encounterLocationReference": "some ref",
+		
+		"encounterLocationName": "enc loc name",
+		"encounterLocationAddressLine": "99 Encounter Park"*/
+	},
+	
+	"originalDocument": {
+		"name": "Example.pdf",
+		"mediaType": "application/pdf",
+		"content": "dGhlIGNvbnRlbnQgb2YgdGhlIG9yaWdpbmFsIGRvY3VtZW50"
+	}
+}

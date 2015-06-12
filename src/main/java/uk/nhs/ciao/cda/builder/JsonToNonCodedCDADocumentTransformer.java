@@ -6,7 +6,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 
-import uk.nhs.ciao.cda.builder.json.CDABuilderDocument;
+import uk.nhs.ciao.cda.builder.json.TransferOfCareDocument;
 import uk.nhs.interoperability.payloads.exceptions.MissingMandatoryFieldException;
 import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
 
@@ -22,7 +22,7 @@ public class JsonToNonCodedCDADocumentTransformer {
 	}
 	
 	public ClinicalDocument transform(final String json) throws JsonProcessingException, IOException, MissingMandatoryFieldException {
-		final CDABuilderDocument document = objectMapper.readValue(json, CDABuilderDocument.class);
+		final TransferOfCareDocument document = objectMapper.readValue(json, TransferOfCareDocument.class);
 		return document.createClinicalDocument();
 	}
 }

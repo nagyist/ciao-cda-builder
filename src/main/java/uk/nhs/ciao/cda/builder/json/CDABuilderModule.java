@@ -4,9 +4,6 @@ import org.w3c.dom.Document;
 
 import uk.nhs.ciao.cda.builder.json.JsonMixins.AddressMixin;
 import uk.nhs.ciao.cda.builder.json.JsonMixins.DateRangeMixin;
-import uk.nhs.ciao.cda.builder.json.JsonMixins.DocumentRecipientMixin;
-import uk.nhs.ciao.cda.builder.json.JsonMixins.NonCodedCDACommonFieldsMixin;
-import uk.nhs.ciao.cda.builder.json.JsonMixins.NonCodedCDAParticipantMixin;
 import uk.nhs.ciao.cda.builder.json.JsonMixins.PersonNameMixin;
 import uk.nhs.interoperability.payloads.CodedValue;
 import uk.nhs.interoperability.payloads.DateValue;
@@ -14,9 +11,6 @@ import uk.nhs.interoperability.payloads.HL7Date;
 import uk.nhs.interoperability.payloads.commontypes.Address;
 import uk.nhs.interoperability.payloads.commontypes.DateRange;
 import uk.nhs.interoperability.payloads.commontypes.PersonName;
-import uk.nhs.interoperability.payloads.helpers.DocumentRecipient;
-import uk.nhs.interoperability.payloads.helpers.NonCodedCDACommonFields;
-import uk.nhs.interoperability.payloads.helpers.NonCodedCDAParticipant;
 import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
 import uk.nhs.interoperability.payloads.vocabularies.VocabularyEntry;
 import uk.nhs.interoperability.payloads.vocabularies.generated.DocumentConsentSnCT;
@@ -32,10 +26,10 @@ import com.fasterxml.jackson.databind.module.SimpleModule;
  * A jackson module configured to handle conversion of a JSON encoded
  * {@link Document} into a non-coded CDA {@link ClinicalDocument}.
  * <p>
- * An incoming JSON document can be deserialized into {@link CDABuilderDocument} and
+ * An incoming JSON document can be deserialized into {@link TransferOfCareDocument} and
  * from there the clinical document can be obtained.
  * 
- * @see CDABuilderDocument
+ * @see TransferOfCareDocument
  * @see uk.nhs.ciao.docs.parser.Document
  * @see NonCodedCDACommonFields
  */
@@ -55,9 +49,6 @@ public class CDABuilderModule extends SimpleModule {
 	 * Initialize the module by adding jackson mixins, serializers, deserializers etc
 	 */
 	private void init() {
-		setMixInAnnotation(NonCodedCDACommonFields.class, NonCodedCDACommonFieldsMixin.class);
-		setMixInAnnotation(DocumentRecipient.class, DocumentRecipientMixin.class);
-		setMixInAnnotation(NonCodedCDAParticipant.class, NonCodedCDAParticipantMixin.class);
 		setMixInAnnotation(Address.class, AddressMixin.class);
 		setMixInAnnotation(DateRange.class, DateRangeMixin.class);
 		setMixInAnnotation(PersonName.class, PersonNameMixin.class);

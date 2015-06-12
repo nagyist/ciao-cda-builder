@@ -20,14 +20,14 @@ public class Example {
 	public void run() throws Exception {
 		final ObjectMapper mapper = new ObjectMapperConfigurator().createObjectMapper();
 		
-		final ObjectReader reader = mapper.reader(CDABuilderDocument.class);
+		final ObjectReader reader = mapper.reader(TransferOfCareDocument.class);
 		
 		long time = System.nanoTime();
-		int times = 10000;
+		int times = 1;
 		for (int i = 0; i < times; i++) {
-			final CDABuilderDocument document = reader.readValue(Example.class.getResourceAsStream("/example.json"));
+			final TransferOfCareDocument document = reader.readValue(Example.class.getResourceAsStream("/partial-example.json"));
 			final ClinicalDocument clinicalDocument = document.createClinicalDocument();
-			clinicalDocument.serialise();
+			System.out.println(clinicalDocument.serialise());
 		}
 		long taken = System.nanoTime() - time;
 		System.out.println("Taken: " + ((double)taken / (double)(times * 1000000L)));
