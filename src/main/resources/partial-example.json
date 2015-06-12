@@ -93,7 +93,7 @@
 		"eventPerformerFamilyName": "Performer",
 
 		"eventODSCode": "event org code",
-		"eventOrganisatioName": "event org name", // TODO: There is a typo here!
+		"eventOrganisationName": "event org name",
 		"consent": "425691002",
 		"encounterFromTime": "20150906120000",
 		"encounterToTime": "20150906160000",

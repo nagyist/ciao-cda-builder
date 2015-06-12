@@ -112,7 +112,7 @@ public class TransferOfCareCommonFields implements Normalisable {
 	private DateValue eventEffectiveToTime;
 	private PersonName eventPerformerName;
 	private String eventODSCode;
-	private String eventOrganisatioName;
+	private String eventOrganisationName;
 	private DocumentConsentSnCT consent;
 	private DateValue encounterFromTime;
 	private DateValue encounterToTime;
@@ -379,11 +379,11 @@ public class TransferOfCareCommonFields implements Normalisable {
 	public void setEventODSCode(String eventODSCode) {
 		this.eventODSCode = eventODSCode;
 	}
-	public String getEventOrganisatioName() {
-		return eventOrganisatioName;
+	public String getEventOrganisationName() {
+		return eventOrganisationName;
 	}
-	public void setEventOrganisatioName(String eventOrganisatioName) {
-		this.eventOrganisatioName = eventOrganisatioName;
+	public void setEventOrganisatioName(String eventOrganisationName) {
+		this.eventOrganisationName = eventOrganisationName;
 	}
 	public DocumentConsentSnCT getConsent() {
 		return consent;

@@ -566,7 +566,7 @@ class TransferOfCareDocumentCreationHelper {
 		boolean to = commonFields.getEventEffectiveToTime()!=null;
 		boolean name = commonFields.getEventPerformerName()!=null;
 		boolean ods = commonFields.getEventODSCode()!=null;
-		boolean org = commonFields.getEventOrganisatioName()!=null;
+		boolean org = commonFields.getEventOrganisationName()!=null;
 		
 		if ((name && ods && org) || (!name && !ods && !org))  {
 			// OK
@@ -612,7 +612,7 @@ class TransferOfCareDocumentCreationHelper {
 									.setID(commonFields.getEventODSCode())
 									.setType(OrgIDType.ODSOrgID.code));
 			// eventOrganisatioName
-			performer.setOrgName(commonFields.getEventOrganisatioName());
+			performer.setOrgName(commonFields.getEventOrganisationName());
 			
 			template.addEventPerformer(new ServiceEventPerformer()
 												.setPerformer(performer)
