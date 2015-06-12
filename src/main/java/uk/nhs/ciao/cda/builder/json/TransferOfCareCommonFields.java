@@ -110,7 +110,11 @@ public class TransferOfCareCommonFields implements Normalisable {
 	private HL7ActType eventType;
 	private DateValue eventEffectiveFromTime;
 	private DateValue eventEffectiveToTime;
+	
+	@JsonUnwrapped(prefix="eventPerformer")
+	@JsonProperty 
 	private PersonName eventPerformerName;
+	
 	private String eventODSCode;
 	private String eventOrganisationName;
 	private DocumentConsentSnCT consent;
