@@ -33,8 +33,11 @@ import uk.nhs.interoperability.payloads.vocabularies.internal.*;
  * are encouraged to use this class as a starting point to build on/tweak as required 
  * @author Adam Hatherly
  */
-class TransferOfCareDocumentCreationHelper {
-
+final class TransferOfCareDocumentCreationHelper {
+	private TransferOfCareDocumentCreationHelper() {
+		// Suppress default constructor
+	}
+	
 	public static ClinicalDocument addNonXMLBody(ClinicalDocument document, AttachmentType encoding, String mimeType, String body) {
 		document.setNonXMLBodyMediaType(mimeType);
 		document.setNonXMLBodyType(encoding.code);

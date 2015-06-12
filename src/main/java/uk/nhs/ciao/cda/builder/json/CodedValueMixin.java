@@ -1,6 +1,6 @@
 package uk.nhs.ciao.cda.builder.json;
 
-import uk.nhs.ciao.cda.builder.json.JsonMixins.DisabledAutoDetectMixin;
+import uk.nhs.ciao.cda.builder.json.JacksonMixins.DisabledAutoDetectMixin;
 import uk.nhs.interoperability.payloads.CodedValue;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * Jackson mixin to handle {@link CodedValue} instances.
  * <p>
- * <strong>This mixin cannot be held within the normal {@link JsonMixins} class due to
+ * <strong>This mixin cannot be held within the normal {@link JacksonMixins} class due to
  * the JsonCreater annotation. This annotation only works on top-level classes
  * - inner classes or non-static classes are not supported (jackson fails
  * silently)</strong>

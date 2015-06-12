@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
  * @see CDABuilderModule
  * @see TransferOfCareCommonFields
  */
-class JsonMixins {
+class JacksonMixins {
 	// disable auto-detect
 	@JsonAutoDetect(
 			creatorVisibility=Visibility.NONE,
@@ -88,18 +88,4 @@ class JsonMixins {
 			return range;
 		}
 	}
-	
-//	private static boolean isEmpty(final List<String> values) {
-//		if (values == null || values.isEmpty()) {
-//			return true;
-//		}
-//		
-//		for (final String value: values) {
-//			if (!isEmpty(value)) {
-//				return false;
-//			}
-//		}
-//		
-//		return true;
-//	}
 }

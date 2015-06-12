@@ -2,9 +2,9 @@ package uk.nhs.ciao.cda.builder.json;
 
 import org.w3c.dom.Document;
 
-import uk.nhs.ciao.cda.builder.json.JsonMixins.AddressMixin;
-import uk.nhs.ciao.cda.builder.json.JsonMixins.DateRangeMixin;
-import uk.nhs.ciao.cda.builder.json.JsonMixins.PersonNameMixin;
+import uk.nhs.ciao.cda.builder.json.JacksonMixins.AddressMixin;
+import uk.nhs.ciao.cda.builder.json.JacksonMixins.DateRangeMixin;
+import uk.nhs.ciao.cda.builder.json.JacksonMixins.PersonNameMixin;
 import uk.nhs.interoperability.payloads.CodedValue;
 import uk.nhs.interoperability.payloads.DateValue;
 import uk.nhs.interoperability.payloads.HL7Date;
