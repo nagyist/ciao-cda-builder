@@ -1,6 +1,7 @@
 package uk.nhs.ciao.cda.builder.json;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -23,7 +24,7 @@ import com.google.common.collect.Maps;
  */
 class VocabularyEntryDeserializer<T extends VocabularyEntry> extends FromStringDeserializer<T> {
 	private static final long serialVersionUID = 3689147032997601765L;
-	private final Map<String, T> entriesByKey;
+	private final HashMap<String, T> entriesByKey;
 	private final boolean caseSensitive;
 	
 	/**
