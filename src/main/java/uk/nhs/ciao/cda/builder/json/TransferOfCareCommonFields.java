@@ -13,12 +13,14 @@
 */
 package uk.nhs.ciao.cda.builder.json;
 
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import uk.nhs.interoperability.payloads.CodedValue;
 import uk.nhs.interoperability.payloads.DateValue;
@@ -91,8 +93,8 @@ public class TransferOfCareCommonFields implements Normalisable {
 
 	private String custodianODSCode;
 	private String custodianOrganisationName;
-	private final List<DocumentRecipient> recipients;
-	private final List<DocumentRecipient> copyRecipients;
+	private final Set<DocumentRecipient> recipients;
+	private final Set<DocumentRecipient> copyRecipients;
 	private String authenticatorSDSID;
 	private String authenticatorSDSRoleID;
 	
@@ -100,7 +102,7 @@ public class TransferOfCareCommonFields implements Normalisable {
 	@JsonProperty private PersonName authenticatorName;
 	
 	private DateValue authenticatedTime;
-	private final List<TransferOfCareParticipant> participants;
+	private final Set<TransferOfCareParticipant> participants;
 	
 	@JsonUnwrapped(prefix="event")
 	@JsonProperty private CodedValue eventCode;
@@ -132,9 +134,9 @@ public class TransferOfCareCommonFields implements Normalisable {
 	private TransferOfCareParticipant participant;
 	
 	public TransferOfCareCommonFields() {
-		this.recipients = Lists.newArrayList();
-		this.copyRecipients = Lists.newArrayList();
-		this.participants = Lists.newArrayList();
+		this.recipients = Sets.newLinkedHashSet();
+		this.copyRecipients = Sets.newLinkedHashSet();
+		this.participants = Sets.newLinkedHashSet();
 	}
 	
 	public String getDocumentTitle() {
@@ -275,7 +277,7 @@ public class TransferOfCareCommonFields implements Normalisable {
 	public void setCustodianOrganisationName(String custodianOrganisationName) {
 		this.custodianOrganisationName = custodianOrganisationName;
 	}
-	public List<DocumentRecipient> getRecipients() {
+	public Set<DocumentRecipient> getRecipients() {
 		return recipients;
 	}
 	public void setRecipients(List<DocumentRecipient> recipients) {
@@ -291,7 +293,7 @@ public class TransferOfCareCommonFields implements Normalisable {
 			this.recipients.add(recipient);
 		}
 	}
-	public List<DocumentRecipient> getCopyRecipients() {
+	public Set<DocumentRecipient> getCopyRecipients() {
 		return copyRecipients;
 	}
 	public void setCopyRecipients(List<DocumentRecipient> copyRecipients) {
@@ -331,10 +333,10 @@ public class TransferOfCareCommonFields implements Normalisable {
 	public void setAuthenticatedTime(DateValue authenticatedTime) {
 		this.authenticatedTime = authenticatedTime;
 	}
-	public List<TransferOfCareParticipant> getParticipants() {
+	public Set<TransferOfCareParticipant> getParticipants() {
 		return participants;
 	}
-	public void setParticipants(List<TransferOfCareParticipant> participants) {
+	public void setParticipants(Set<TransferOfCareParticipant> participants) {
 		this.participants.clear();
 		if (participants != null) {
 			for (final TransferOfCareParticipant participant: participants) {
@@ -577,7 +579,7 @@ public class TransferOfCareCommonFields implements Normalisable {
 		participant = null;
 	}
 	
-	private static <T extends Normalisable & Emptiable> void normalize(final List<T> values) {
+	private static <T extends Normalisable & Emptiable> void normalize(final Collection<T> values) {
 		for (final Iterator<T> iterator = values.iterator(); iterator.hasNext();) {
 			final T recipient = iterator.next();
 			if (recipient != null) {
