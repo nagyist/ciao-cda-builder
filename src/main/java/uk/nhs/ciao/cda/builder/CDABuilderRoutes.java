@@ -1,5 +1,6 @@
 package uk.nhs.ciao.cda.builder;
 
+import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -115,6 +116,7 @@ public class CDABuilderRoutes extends CIPRoutes {
 			.doTry()
 				.log(LoggingLevel.INFO, LOGGER, "Unmarshalled incoming JSON document")
 				.beanRef(processorId, "serialise")
+				.setHeader(Exchange.FILE_NAME, simple("${file:name.noext}.xml"))
 				.to("jms:queue:" + outputQueue)
 			.doCatch(Exception.class)
 				.log(LoggingLevel.ERROR, LOGGER, "Exception while builder CDA document")
