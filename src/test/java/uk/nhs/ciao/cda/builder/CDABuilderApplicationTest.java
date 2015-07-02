@@ -15,6 +15,7 @@ import org.apache.camel.Predicate;
 import org.apache.camel.Producer;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -34,6 +35,7 @@ import uk.nhs.ciao.camel.CamelApplicationRunner;
 import uk.nhs.ciao.camel.CamelApplicationRunner.AsyncExecution;
 import uk.nhs.ciao.configuration.CIAOConfig;
 import uk.nhs.ciao.configuration.impl.MemoryCipProperties;
+import uk.nhs.ciao.docs.parser.ParsedDocument;
 import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
 import static org.junit.Assert.*;
 
@@ -144,6 +146,7 @@ public class CDABuilderApplicationTest {
 			@Override
 			public void configure() throws Exception {
 				from("jms:queue:cda-documents")
+				.unmarshal().json(JsonLibrary.Jackson, ParsedDocument.class)
 				.to("mock:output");
 			}
 		});
@@ -155,8 +158,10 @@ public class CDABuilderApplicationTest {
 		endpoint.expectedMessagesMatches(new Predicate() {			
 			@Override
 			public boolean matches(final Exchange exchange) {
-				// For now just check that we get a non coded CDA document
-				final InputStream xml = exchange.getIn().getBody(InputStream.class);
+				// For now just check that we get a ParsedDocument containing a non coded CDA document as payload
+				final ParsedDocument parsedDocument = exchange.getIn().getBody(ParsedDocument.class);
+				assertNotNull("parsedDocument", parsedDocument);
+				final InputStream xml = parsedDocument.getOriginalDocument().getContentStream();
 				try {
 					final ClinicalDocument template = new ClinicalDocument(xml);
 					return template.hasData() && !Strings.isNullOrEmpty(template.getNonXMLBodyText());
