@@ -3,6 +3,7 @@ package uk.nhs.ciao.cda.builder;
 import java.io.IOException;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Preconditions;
 
@@ -20,10 +21,13 @@ public class JsonToNonCodedCDADocumentTransformer {
 	}
 	
 	public ParsedDocument transform(final String json) throws IOException, MissingMandatoryFieldException {
-		final TransferOfCareDocument transferOfCareDocument = objectMapper.readValue(json, TransferOfCareDocument.class);
+		// Only parse the JSON once - then traverse the parsed nodes on each pass
+		final JsonNode rootNode = objectMapper.readTree(json);
+
+		final TransferOfCareDocument transferOfCareDocument = objectMapper.readValue(rootNode.traverse(), TransferOfCareDocument.class);
 		final ClinicalDocument clinicalDocument = transferOfCareDocument.createClinicalDocument();
 		
-		final ParsedDocument parsedDocument = objectMapper.readValue(json, ParsedDocument.class);
+		final ParsedDocument parsedDocument = objectMapper.readValue(rootNode.traverse(), ParsedDocument.class);
 
 		// The original properties and filename from the incoming JSON are maintained in the outgoing document
 		final String name = parsedDocument.getOriginalDocument().getName();
