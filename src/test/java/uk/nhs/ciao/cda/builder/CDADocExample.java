@@ -2,6 +2,7 @@ package uk.nhs.ciao.cda.builder;
 import java.util.Date;
 
 import org.apache.commons.codec.binary.Base64;
+import org.slf4j.LoggerFactory;
 
 import uk.nhs.interoperability.payloads.CodedValue;
 import uk.nhs.interoperability.payloads.DateValue;
@@ -38,20 +39,20 @@ import uk.nhs.interoperability.payloads.vocabularies.internal.PersonIDType;
 import uk.nhs.interoperability.payloads.vocabularies.internal.TelecomUseType;
 
 
-public class TestCDADoc {
+public class CDADocExample {
 
 	public static void main(String[] args) {
 		ClinicalDocument template = createCommonFields();
 		// Non XML Body
 		template.setNonXMLBodyType(AttachmentType.Base64.code);
 		template.setNonXMLBodyMediaType("text/xml");
-		String data = FileLoader.loadFile(TestCDADoc.class.getResourceAsStream("/attachment.txt"));
+		String data = FileLoader.loadFile(CDADocExample.class.getResourceAsStream("/attachment.txt"));
 		// Using the standard Java 6 base64 encoder
 		String base64data = Base64.encodeBase64String(data.getBytes());
 		template.setNonXMLBodyText(base64data);
 		
-		// Serialise and dump to stdout
-		System.out.println(template.serialise());
+		// Serialise and dump to log
+		LoggerFactory.getLogger(CDADocExample.class).info("Serialised ClinicalDocument:\n" + template.serialise());
 	}
 	
 	public static ClinicalDocument createCommonFields() {
