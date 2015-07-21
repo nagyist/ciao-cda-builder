@@ -28,7 +28,9 @@ class JacksonMixins {
 			getterVisibility=Visibility.NONE,
 			isGetterVisibility=Visibility.NONE,
 			setterVisibility=Visibility.NONE)
-	interface DisabledAutoDetectMixin {}
+	interface DisabledAutoDetectMixin {
+		// Tagging interface to import Jackson annotations - no additional methods required
+	}
 		
 	interface AddressMixin extends DisabledAutoDetectMixin {
 		@JsonProperty("line") List<String> getAddressLine();
@@ -52,7 +54,9 @@ class JacksonMixins {
 	}
 	
 	@JsonDeserialize(builder=DateRangeBuilder.class)
-	public static abstract class DateRangeMixin implements DisabledAutoDetectMixin {}
+	public static abstract class DateRangeMixin implements DisabledAutoDetectMixin {
+		// Tagging class to specify Jackson annotations - no additional methods required
+	}
 	
 	// Supports alternate property names
 	@JsonPOJOBuilder
