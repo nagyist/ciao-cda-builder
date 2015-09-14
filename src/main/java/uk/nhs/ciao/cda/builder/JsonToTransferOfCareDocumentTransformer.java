@@ -11,12 +11,12 @@ import uk.nhs.ciao.cda.builder.json.TransferOfCareDocument;
 import uk.nhs.ciao.docs.parser.Document;
 import uk.nhs.ciao.docs.parser.ParsedDocument;
 import uk.nhs.interoperability.payloads.exceptions.MissingMandatoryFieldException;
-import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
+import uk.nhs.interoperability.payloads.toc_edischarge_draftB.ClinicalDocument;
 
-public class JsonToNonCodedCDADocumentTransformer {
+public class JsonToTransferOfCareDocumentTransformer {
 	private final ObjectMapper objectMapper;
 	
-	public JsonToNonCodedCDADocumentTransformer(final ObjectMapper objectMapper) {
+	public JsonToTransferOfCareDocumentTransformer(final ObjectMapper objectMapper) {
 		this.objectMapper = Preconditions.checkNotNull(objectMapper);
 	}
 	

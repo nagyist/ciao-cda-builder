@@ -3,7 +3,10 @@ package uk.nhs.ciao.cda.builder.json;
 import org.w3c.dom.Document;
 
 import uk.nhs.ciao.cda.builder.json.JacksonMixins.AddressMixin;
+import uk.nhs.ciao.cda.builder.json.JacksonMixins.CDADocumentParticipantMixin;
 import uk.nhs.ciao.cda.builder.json.JacksonMixins.DateRangeMixin;
+import uk.nhs.ciao.cda.builder.json.JacksonMixins.DocumentRecipientMixin;
+import uk.nhs.ciao.cda.builder.json.JacksonMixins.JsonTransferOfCareFieldsMixin;
 import uk.nhs.ciao.cda.builder.json.JacksonMixins.PersonNameMixin;
 import uk.nhs.interoperability.payloads.CodedValue;
 import uk.nhs.interoperability.payloads.DateValue;
@@ -11,12 +14,16 @@ import uk.nhs.interoperability.payloads.HL7Date;
 import uk.nhs.interoperability.payloads.commontypes.Address;
 import uk.nhs.interoperability.payloads.commontypes.DateRange;
 import uk.nhs.interoperability.payloads.commontypes.PersonName;
+import uk.nhs.interoperability.payloads.helpers.CDADocumentParticipant;
+import uk.nhs.interoperability.payloads.helpers.DocumentRecipient;
 import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
 import uk.nhs.interoperability.payloads.vocabularies.VocabularyEntry;
+import uk.nhs.interoperability.payloads.vocabularies.generated.CorrespondenceCaresettingtype;
 import uk.nhs.interoperability.payloads.vocabularies.generated.DocumentConsentSnCT;
 import uk.nhs.interoperability.payloads.vocabularies.generated.Documenttype;
 import uk.nhs.interoperability.payloads.vocabularies.generated.JobRoleName;
 import uk.nhs.interoperability.payloads.vocabularies.generated.ParticipationType;
+import uk.nhs.interoperability.payloads.vocabularies.generated.RoleClassAssociative;
 import uk.nhs.interoperability.payloads.vocabularies.generated.Sex;
 import uk.nhs.interoperability.payloads.vocabularies.internal.HL7ActType;
 
@@ -53,6 +60,9 @@ public class CDABuilderModule extends SimpleModule {
 		setMixInAnnotation(DateRange.class, DateRangeMixin.class);
 		setMixInAnnotation(PersonName.class, PersonNameMixin.class);
 		setMixInAnnotation(CodedValue.class, CodedValueMixin.class);
+		setMixInAnnotation(DocumentRecipient.class, DocumentRecipientMixin.class);
+		setMixInAnnotation(CDADocumentParticipant.class, CDADocumentParticipantMixin.class);
+		setMixInAnnotation(JsonTransferOfCareFields.class, JsonTransferOfCareFieldsMixin.class);
 		
 		addDeserializer(DateValue.class, new DateValueDeserializer());
 
@@ -63,6 +73,8 @@ public class CDABuilderModule extends SimpleModule {
 		addVocabularyEntryDeserializer(HL7ActType.class, HL7ActType.values());
 		addVocabularyEntryDeserializer(DocumentConsentSnCT.class, DocumentConsentSnCT.values());
 		addVocabularyEntryDeserializer(ParticipationType.class, ParticipationType.values());
+		addVocabularyEntryDeserializer(CorrespondenceCaresettingtype.class, CorrespondenceCaresettingtype.values());
+		addVocabularyEntryDeserializer(RoleClassAssociative.class, RoleClassAssociative.values());
 		
 		addSerializer(VocabularyEntry.class, new VocabularyEntrySerializer());
 		

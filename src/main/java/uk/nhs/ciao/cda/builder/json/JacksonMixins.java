@@ -2,10 +2,17 @@ package uk.nhs.ciao.cda.builder.json;
 
 import java.util.List;
 
+import uk.nhs.interoperability.payloads.CodedValue;
 import uk.nhs.interoperability.payloads.HL7Date;
+import uk.nhs.interoperability.payloads.commontypes.Address;
 import uk.nhs.interoperability.payloads.commontypes.DateRange;
+import uk.nhs.interoperability.payloads.commontypes.PersonName;
+import uk.nhs.interoperability.payloads.vocabularies.generated.JobRoleName;
+import uk.nhs.interoperability.payloads.vocabularies.generated.ParticipationType;
+import uk.nhs.interoperability.payloads.vocabularies.generated.RoleClassAssociative;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
@@ -18,7 +25,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
  * mixins required to handled non coded CDA documents
  * 
  * @see CDABuilderModule
- * @see TransferOfCareCommonFields
+ * @see JsonTransferOfCareFields
  */
 class JacksonMixins {
 	// disable auto-detect
@@ -56,6 +63,67 @@ class JacksonMixins {
 	@JsonDeserialize(builder=DateRangeBuilder.class)
 	public static abstract class DateRangeMixin implements DisabledAutoDetectMixin {
 		// Tagging class to specify Jackson annotations - no additional methods required
+	}
+	
+	public static abstract class DocumentRecipientMixin {
+		@JsonUnwrapped @JsonProperty("name") PersonName recipientName;
+		@JsonProperty("address") Address recipientAddress;
+		@JsonProperty("telephone") String recipientTelephone;
+		@JsonProperty("jobRole") JobRoleName recipientJobRole;
+		@JsonProperty("odsCode") String recipientODSCode;
+		@JsonProperty("organisationName") String recipientOrganisationName;
+		@JsonProperty("sdsId") String recipientSDSID;
+		@JsonProperty("sdsRoleId") String recipientSDSRoleID;
+	}
+	
+	public static abstract class CDADocumentParticipantMixin {
+		@JsonUnwrapped @JsonProperty("name") PersonName participantName;
+		@JsonProperty("sdsId") String participantSDSID;
+		@JsonProperty("sdsRoleId") String participantSDSRoleID;
+		@JsonProperty("address") Address participantAddress;
+		@JsonProperty("telephone") String participantTelephone;
+		@JsonProperty("odsCode") String participantODSCode;
+		@JsonProperty("organisationName") String participantOrganisationName;
+		@JsonProperty("type") ParticipationType participantType;
+		@JsonProperty("roleClass") RoleClassAssociative participantRoleClass;
+	}
+	
+	public static abstract class JsonTransferOfCareFieldsMixin {
+		@JsonUnwrapped(prefix="patient")
+		@JsonProperty PersonName patientName;
+		
+		@JsonUnwrapped(prefix="patientAddress")
+		@JsonProperty Address patientAddress;
+		
+		@JsonUnwrapped(prefix="usualGPAddress")
+		@JsonProperty Address usualGPAddress;
+		
+		@JsonUnwrapped(prefix="documentAuthorAddress")
+		@JsonProperty Address documentAuthorAddress;
+		
+		@JsonUnwrapped(prefix="documentAuthor")
+		@JsonProperty PersonName documentAuthorName;
+		
+		@JsonUnwrapped(prefix="dataEnterer")
+		@JsonProperty PersonName dataEntererName;
+		
+		@JsonUnwrapped(prefix="authenticator")
+		@JsonProperty PersonName authenticatorName;
+		
+		@JsonUnwrapped(prefix="event")
+		@JsonProperty CodedValue eventCode;
+		
+		@JsonUnwrapped(prefix="eventPerformer")
+		@JsonProperty PersonName eventPerformerName;
+		
+		@JsonUnwrapped(prefix="encounter")
+		@JsonProperty CodedValue encounterType;
+		
+		@JsonUnwrapped(prefix="encounterLocation")
+		@JsonProperty CodedValue encounterLocationType;
+		
+		@JsonUnwrapped(prefix="encounterLocationAddress")
+		@JsonProperty Address encounterLocationAddress;
 	}
 	
 	// Supports alternate property names

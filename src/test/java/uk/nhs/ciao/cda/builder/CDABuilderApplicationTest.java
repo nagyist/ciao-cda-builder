@@ -36,7 +36,7 @@ import uk.nhs.ciao.camel.CamelApplicationRunner.AsyncExecution;
 import uk.nhs.ciao.configuration.CIAOConfig;
 import uk.nhs.ciao.configuration.impl.MemoryCipProperties;
 import uk.nhs.ciao.docs.parser.ParsedDocument;
-import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
+import uk.nhs.interoperability.payloads.toc_edischarge_draftB.ClinicalDocument;
 import static org.junit.Assert.*;
 
 

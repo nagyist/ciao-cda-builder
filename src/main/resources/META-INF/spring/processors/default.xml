@@ -5,7 +5,7 @@
 	
 	<!-- NOOP for now -->
 	<!-- Define any processor beans here -->
-	<bean id="processor" class="uk.nhs.ciao.cda.builder.JsonToNonCodedCDADocumentTransformer">
+	<bean id="processor" class="uk.nhs.ciao.cda.builder.JsonToTransferOfCareDocumentTransformer">
 		<constructor-arg ref="objectMapper" />
 	</bean>
 	

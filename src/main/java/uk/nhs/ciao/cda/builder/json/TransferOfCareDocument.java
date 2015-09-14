@@ -5,22 +5,23 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import uk.nhs.ciao.docs.parser.Document;
 import uk.nhs.interoperability.payloads.exceptions.MissingMandatoryFieldException;
-import uk.nhs.interoperability.payloads.noncodedcdav2.ClinicalDocument;
+import uk.nhs.interoperability.payloads.helpers.TransferOfCareDraftBDocumentCreationHelper;
+import uk.nhs.interoperability.payloads.toc_edischarge_draftB.ClinicalDocument;
 import uk.nhs.interoperability.payloads.vocabularies.internal.AttachmentType;
 
 public class TransferOfCareDocument {
-	private TransferOfCareCommonFields properties;	
+	private JsonTransferOfCareFields properties;	
 	private Document originalDocument;
 	
 	@JsonCreator
-	public TransferOfCareDocument(@JsonProperty("properties") final TransferOfCareCommonFields properties,
+	public TransferOfCareDocument(@JsonProperty("properties") final JsonTransferOfCareFields properties,
 			@JsonProperty("originalDocument") final Document originalDocument) {
-		this.properties = properties == null ? new TransferOfCareCommonFields() : properties;
+		this.properties = properties == null ? new JsonTransferOfCareFields() : properties;
 		this.originalDocument = originalDocument;
 	}
 	
 	@JsonProperty("properties")
-	public TransferOfCareCommonFields getProperties() {
+	public JsonTransferOfCareFields getProperties() {
 		return properties;
 	}
 	
@@ -33,9 +34,9 @@ public class TransferOfCareDocument {
 		if (properties != null) {
 			properties.normalise();
 		}
-		final ClinicalDocument document = TransferOfCareDocumentCreationHelper.createDocument(properties);
+		final ClinicalDocument document = TransferOfCareDraftBDocumentCreationHelper.createDocument(properties);
 		if (originalDocument != null) {
-			TransferOfCareDocumentCreationHelper.addNonXMLBody(document,
+			TransferOfCareDraftBDocumentCreationHelper.addNonXMLBody(document,
 					AttachmentType.Base64, originalDocument.getMediaType(),
 					originalDocument.getBase64Content());
 		}

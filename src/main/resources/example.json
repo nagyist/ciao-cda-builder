@@ -108,7 +108,9 @@
 		"encounterLocationReference": "some ref",
 		
 		"encounterLocationName": "enc loc name",
-		"encounterLocationAddressLine": "99 Encounter Park"
+		"encounterLocationAddressLine": "99 Encounter Park",
+		
+		"careSetting": "828881000000106"
 	},
 	
 	"originalDocument": {
