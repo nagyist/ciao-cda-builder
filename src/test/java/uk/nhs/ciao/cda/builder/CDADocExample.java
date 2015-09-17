@@ -1,8 +1,8 @@
 package uk.nhs.ciao.cda.builder;
 import java.util.Date;
 
-import org.apache.commons.codec.binary.Base64;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.Base64Utils;
 
 import uk.nhs.interoperability.payloads.CodedValue;
 import uk.nhs.interoperability.payloads.DateValue;
@@ -48,7 +48,7 @@ public class CDADocExample {
 		template.setNonXMLBodyMediaType("text/xml");
 		String data = FileLoader.loadFile(CDADocExample.class.getResourceAsStream("/attachment.txt"));
 		// Using the standard Java 6 base64 encoder
-		String base64data = Base64.encodeBase64String(data.getBytes());
+		String base64data = Base64Utils.encodeToString(data.getBytes());
 		template.setNonXMLBodyText(base64data);
 		
 		// Serialise and dump to log
