@@ -124,6 +124,9 @@ class JacksonMixins {
 		
 		@JsonUnwrapped(prefix="encounterLocationAddress")
 		@JsonProperty Address encounterLocationAddress;
+		
+		@JsonUnwrapped(prefix="medicationsPharmacistScreeningAuthor")
+		@JsonProperty PersonName medicationsPharmacistScreeningAuthorName;
 	}
 	
 	// Supports alternate property names
