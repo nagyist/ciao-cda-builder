@@ -176,6 +176,7 @@ public class JsonTransferOfCareFields extends TransferOfCareFields {
 		setEncounterToTime(emptyToNull(getEncounterToTime()));
 		setEncounterLocationType(emptyToNull(getEncounterLocationType()));
 		setEncounterLocationAddress(emptyToNull(getEncounterLocationAddress()));
+		setEncounterType(emptyToNull(getEncounterType()));
 		setMedicationsPharmacistScreeningAuthorName(emptyToNull(getMedicationsPharmacistScreeningAuthorName()));
 		setMedicationsPharmacistScreeningDate(emptyToNull(getMedicationsPharmacistScreeningDate()));
 	}
