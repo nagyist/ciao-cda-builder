@@ -17,5 +17,6 @@
 	],
 	"recipientAddressPostcode": "SE23 1HU",
 	
-	"receiverODSCode": "1234"
+	"receiverODSCode": "BBB",
+	"itkHandlingSpec": "urn:nhs-itk:interaction:copyRecipientAmbulanceServicePatientReport-v1-0"
 }
