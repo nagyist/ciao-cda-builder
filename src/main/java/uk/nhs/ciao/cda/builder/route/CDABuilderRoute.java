@@ -3,6 +3,7 @@ package uk.nhs.ciao.cda.builder.route;
 import org.apache.camel.Exchange;
 import org.apache.camel.LoggingLevel;
 import org.apache.camel.model.dataformat.JsonLibrary;
+import org.apache.camel.spring.spi.TransactionErrorHandlerBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -76,6 +77,9 @@ public class CDABuilderRoute extends BaseRouteBuilder {
 	public void configure() throws Exception {
 		from("jms:queue:" + inputQueue)
 		.id("cda-builder-" + name)
+		.errorHandler(new TransactionErrorHandlerBuilder()
+				.maximumRedeliveries(0)) // redeliveries are disabled (building in only tried once)
+		.transacted("PROPAGATION_NOT_SUPPORTED")
 		.doTry()
 			.log(LoggingLevel.INFO, LOGGER, "Unmarshalled incoming JSON document")
 			.beanRef(processorId, "transform")
