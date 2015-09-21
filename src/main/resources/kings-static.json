@@ -1,10 +1,21 @@
 {
 	"properties" : {
 		"documentTitle": "Discharge Summary",
-		"careSetting": "Urology",
+		"careSetting": "394612005",
 		"custodianODSCode": "RJZ",
 		"custodianOrganisationName": "KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
 		"patientLocalIDAssigningAuthority": "RJZ:KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
-		"patientNHSNoIsTraced": true
+		"patientNHSNoIsTraced": true,
+		  
+		"patientGender": "female",
+		"recipientFullName": "The Jenner Practice",
+		"recipientOrganisationName": "The Jenner Practice",
+		"recipientODSCode": "1234",
+		"recipientAddressLine": [
+		  "Jenner Health Centre",
+		  "201 Stanstead Road, Forest Hill",
+		  "London"
+		],
+		"recipientAddressPostcode": "SE23 1HU"
 	},
 }
