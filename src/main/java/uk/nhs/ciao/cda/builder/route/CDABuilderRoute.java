@@ -1,16 +1,17 @@
 package uk.nhs.ciao.cda.builder.route;
 
+import static uk.nhs.ciao.logging.CiaoCamelLogMessage.camelLogMsg;
+
 import org.apache.camel.Exchange;
-import org.apache.camel.LoggingLevel;
 import org.apache.camel.model.dataformat.JsonLibrary;
 import org.apache.camel.spring.spi.TransactionErrorHandlerBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import uk.nhs.ciao.camel.BaseRouteBuilder;
 import uk.nhs.ciao.configuration.CIAOConfig;
+import uk.nhs.ciao.docs.parser.HeaderNames;
 import uk.nhs.ciao.docs.parser.route.InProgressFolderManagerRoute;
 import uk.nhs.ciao.exceptions.CIAOConfigurationException;
+import uk.nhs.ciao.logging.CiaoCamelLogger;
 
 /**
  * Creates a Camel route for the specified name / property prefix.
@@ -22,7 +23,7 @@ import uk.nhs.ciao.exceptions.CIAOConfigurationException;
  * </ul>
  */
 public class CDABuilderRoute extends BaseRouteBuilder {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CDABuilderRoute.class);
+	private static final CiaoCamelLogger LOGGER = CiaoCamelLogger.getLogger(CDABuilderRoute.class);
 	
 	/**
 	 * The root property 
@@ -81,14 +82,28 @@ public class CDABuilderRoute extends BaseRouteBuilder {
 				.maximumRedeliveries(0)) // redeliveries are disabled (building in only tried once)
 		.transacted("PROPAGATION_NOT_SUPPORTED")
 		.doTry()
-			.log(LoggingLevel.INFO, LOGGER, "Unmarshalled incoming JSON document")
+			.process(LOGGER.info(camelLogMsg("Received JSON document to convert into CDA document")
+					.documentId(header(Exchange.CORRELATION_ID))
+					.originalFileName(header(HeaderNames.SOURCE_FILE_NAME))))
+		
+			.process(LOGGER.info(camelLogMsg("Attempting to create CDA document")
+					.documentId(header(Exchange.CORRELATION_ID))
+					.eventName(constant("building-cda-document"))
+					.originalFileName(header(HeaderNames.SOURCE_FILE_NAME))))
 			.beanRef(processorId, "transform")
+			
+			.process(LOGGER.info(camelLogMsg("Completed building CDA document")
+					.documentId(header(Exchange.CORRELATION_ID))
+					.eventName(constant("built-cda-document"))
+					.originalFileName(header(HeaderNames.SOURCE_FILE_NAME))))	
 			.marshal().json(JsonLibrary.Jackson)
-			.setHeader(Exchange.FILE_NAME, simple("${file:name.noext}.json"))
+			.setHeader(Exchange.FILE_NAME, simple("${file:name.noext}.xml"))
 			.to("jms:queue:" + outputQueue)
 		.doCatch(Exception.class)
-			.log(LoggingLevel.ERROR, LOGGER, "Exception while builder CDA document")
-			.to("log:" + LOGGER.getName() + "?level=ERROR&showCaughtException=true")
+			.process(LOGGER.warn(camelLogMsg("CDA document building failed")
+					.documentId(header(Exchange.CORRELATION_ID))
+					.eventName(constant("cda-document-building-failed"))
+					.originalFileName(header(HeaderNames.SOURCE_FILE_NAME))))
 			
 			// Add a preparation-failed event to the in-progress directory
 			.setHeader(InProgressFolderManagerRoute.Header.ACTION, constant(InProgressFolderManagerRoute.Action.STORE))
