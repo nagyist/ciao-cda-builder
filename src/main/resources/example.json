@@ -7,6 +7,11 @@
 	  "custodianOrganisationName": "KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
 	  "patientLocalIDAssigningAuthority": "RJZ:KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
 	  "patientNHSNoIsTraced": true,
+	  
+	  "documentAuthorOrganisationODSID": "RJZ",
+	  "documentAuthorOrganisationName": "KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
+	  "medicationsPharmacistScreeningAuthorOrgName": "KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
+	  "medicationsPharmacistScreeningAuthorODSCode": "RJZ",
 		   
 	  "patientGender": "female",
 	  "recipientFullName": "The Jenner Practice",
@@ -30,9 +35,9 @@
 	  "Specialty": "Medicine",
 	  "Patient Name": "Mary Edn-Training",
 	  "Discharged by": "Sarah Phillips",
-	  "D.O.B": "05/09/1956 ( 58 )",
+	  "D.O.B": "19560905", // FIXED MANUALLY
 	  "Self Discharge": "No",
-	  "Date of Admission": "23/01/2014 13:28",
+	  "Date of Admission": "201401231328", // FIXED MANUALLY
 	  "Method of admission": "Emergency - GP Referral",
 	  "Source of admission": "Usual place of residence",
 	  "GP": [
@@ -82,11 +87,11 @@
 	  "documentAuthorFullName": "Jack Barker",
 	  "patientNHSNo": "None",
 	  "patientFullName": "Mary Edn-Training",
-	  "patientBirthDate": "05/09/1956 ( 58 )",
+	  "patientBirthDate": "19560905", // FIXED MANUALLY
 	  "patientAddressFull": "36 Muirkirk Road, Catford LONDON, SE6 1BU",
 	  "clinicalSummary": "We treated her as sepsis. CXR showed ? lesion in right upper lobe and also showed patchy shadows. We arranged for CT CAP on view of loss of weight and lesions in right upper lobe. CT CAP showed achlasia hernia and no evidence of malignancy. We treated her with antibiotics for urinary tract infection. She was stable during the ward stay but she was not calm and screaming most of the time, but not aggressive and harmful to anyone on ward. However, she became a lot calmer with Quetiapine. She was discharged with Quetiapine low dose.",
 	  "medicationsPharmacistScreeningAuthorFullName": "John Adams",
-	  "medicationsPharmacistScreeningDate": "2015-06-09 14:42:00.000",
+	  "medicationsPharmacistScreeningDate": "20150609144200.000", // FIXED MANUALLY
 	  "medicationsPharmacistScreeningAuthorTelephone": "546",
 	  "admissionDetails": "<table width=\"100%\"><tbody><tr><td>Self Discharge</td><td>No</td></tr><tr><td>Date of Admission</td><td>23/01/2014 13:28</td></tr><tr><td>Method of admission</td><td>Emergency - GP Referral</td></tr><tr><td>Source of admission</td><td>Usual place of residence</td></tr></tbody></table>",
 	  "dischargeDetails": "<table width=\"100%\"><tbody><tr><td>Ward</td><td>Medical Ward 1</td></tr><tr><td>Consultant</td><td>Jack Barker</td></tr><tr><td>Specialty</td><td>Medicine</td></tr><tr><td>Date of Discharge</td><td>:</td></tr><tr><td>Discharge Address</td><td /></tr><tr><td>Discharge Status</td><td /></tr></tbody></table>",

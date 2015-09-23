@@ -48,6 +48,7 @@ import uk.nhs.ciao.docs.parser.ParsedDocument;
 import uk.nhs.interoperability.payloads.toc_edischarge_draftB.ClinicalDocument;
 import uk.nhs.interoperability.payloads.util.FileWriter;
 import uk.nhs.interoperability.payloads.util.PropertyReader;
+import uk.nhs.interoperability.payloads.util.xml.SchemaValidator;
 
 import com.google.common.base.Strings;
 import com.google.common.io.ByteStreams;
@@ -190,10 +191,22 @@ public class CDABuilderApplicationTest {
 						// Do a schema check to make sure this is a valid CDA document
 						String schemaPath = "./XSD/Schemas/POCD_MT000002UK01.xsd";
 						try {
-							validate(serialised, new File(schemaPath));
+							SchemaValidator.validate(serialised, new File(schemaPath));
 						} catch (Exception e) {
 							// Validation failed
 							LOGGER.error("Schema validation failed", e);
+							return false;
+						}
+						
+						// Now, transform the document and to a schema check on the "templated" form
+						String templatedSchemaPath = "./XSD/Schemas/POCD_MT000026GB01.xsd";
+						String transformPath = "./XSD/Transform/TrueCDAToCDALike_v2.xsl";
+						try {
+							SchemaValidator.testAgainstTemplatedSchema(serialised,
+											new File(templatedSchemaPath), new File(transformPath));
+						} catch (Exception e) {
+							// Validation failed
+							LOGGER.error("Templated schema validation failed", e);
 							return false;
 						}
 					}
@@ -209,19 +222,6 @@ public class CDABuilderApplicationTest {
 		MockEndpoint.assertIsSatisfied(10, TimeUnit.SECONDS, endpoint);
 	}
 	
-	public static boolean validate(String xml, File xsd) throws Exception {
-		Source xmlFile = new StreamSource(new ByteArrayInputStream(xml.getBytes()));
-		SchemaFactory schemaFactory = SchemaFactory
-		    .newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-		Schema schema = schemaFactory.newSchema(xsd);
-		Validator validator = schema.newValidator();
-		try {
-		  validator.validate(xmlFile);
-		  return true;
-		} catch (SAXException e) {
-		  throw e;
-		}
-	}
 	
 	private void sendMessage(final Producer producer, final Object body) throws Exception {
 		final Exchange exchange = producer.createExchange();
