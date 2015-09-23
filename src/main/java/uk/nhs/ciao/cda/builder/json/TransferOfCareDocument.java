@@ -35,11 +35,17 @@ public class TransferOfCareDocument {
 			properties.normalise();
 		}
 		final ClinicalDocument document = TransferOfCareDraftBDocumentCreationHelper.createDocument(properties);
-		if (originalDocument != null) {
+
+		// TODO: Add a condition that allows us to use a new boolean key "attachOriginalDocument" to specify whether the original document should be attached or not
+		
+		/*if (originalDocument != null) {
 			TransferOfCareDraftBDocumentCreationHelper.addNonXMLBody(document,
 					AttachmentType.Base64, originalDocument.getMediaType(),
 					originalDocument.getBase64Content());
-		}
+		}*/
+		
+		// Add the PRSB headings
+		TransferOfCareDraftBDocumentCreationHelper.addPRSBSections(properties, document);
 		
 		return document;
 	}
