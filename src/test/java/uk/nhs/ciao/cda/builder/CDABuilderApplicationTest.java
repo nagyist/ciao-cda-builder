@@ -45,6 +45,7 @@ import uk.nhs.ciao.camel.CamelApplicationRunner.AsyncExecution;
 import uk.nhs.ciao.configuration.CIAOConfig;
 import uk.nhs.ciao.configuration.impl.MemoryCipProperties;
 import uk.nhs.ciao.docs.parser.ParsedDocument;
+import uk.nhs.interoperability.payloads.helpers.DocumentRenderer;
 import uk.nhs.interoperability.payloads.toc_edischarge_draftB.ClinicalDocument;
 import uk.nhs.interoperability.payloads.util.FileWriter;
 import uk.nhs.interoperability.payloads.util.PropertyReader;
@@ -181,6 +182,8 @@ public class CDABuilderApplicationTest {
 					final ClinicalDocument template = new ClinicalDocument(xml);
 					String serialised = template.serialise();
 					//FileWriter.writeFile("output-cda.xml", serialised.getBytes());
+					//String html = DocumentRenderer.generateHTMLDocument(serialised);
+					//FileWriter.writeFile("output-cda-rendered.htm", html.getBytes());
 					
 					boolean hasData = (template.hasData() &&
 							template.getPatient().hasData() &&

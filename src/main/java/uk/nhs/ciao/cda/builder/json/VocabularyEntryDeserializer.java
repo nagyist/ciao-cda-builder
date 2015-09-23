@@ -45,6 +45,7 @@ class VocabularyEntryDeserializer<T extends VocabularyEntry> extends FromStringD
 		
 		for (final T entry: entries) {
 			addEntry(entry.getCode(), entry);
+			addEntry(entry.getDisplayName(), entry);
 		}
 	}
 	
