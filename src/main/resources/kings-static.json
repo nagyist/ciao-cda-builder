@@ -5,6 +5,11 @@
 	"custodianOrganisationName": "KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
 	"patientLocalIDAssigningAuthority": "RJZ:KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
 	"patientNHSNoIsTraced": true,
+	
+	"documentAuthorOrganisationODSID": "RJZ",
+	"documentAuthorOrganisationName": "KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
+	"medicationsPharmacistScreeningAuthorOrgName": "KING'S COLLEGE HOSPITAL NHS FOUNDATION TRUST",
+	"medicationsPharmacistScreeningAuthorODSCode": "RJZ",
 	  
 	"patientGender": "female",
 	"recipientFullName": "The Jenner Practice",
