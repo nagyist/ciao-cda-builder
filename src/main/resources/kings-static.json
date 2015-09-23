@@ -23,5 +23,5 @@
 	"recipientAddressPostcode": "SE23 1HU",
 	
 	"receiverODSCode": "BBB",
-	"itkHandlingSpec": "urn:nhs-itk:interaction:copyRecipientAmbulanceServicePatientReport-v1-0"
+	"itkHandlingSpec": "urn:nhs-itk:interaction:primaryRecipienteDischargeInpatientDischargeSummaryDocument-v1-0"
 }
