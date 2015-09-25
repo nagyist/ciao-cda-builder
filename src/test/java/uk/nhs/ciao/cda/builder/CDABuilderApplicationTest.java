@@ -3,7 +3,6 @@ package uk.nhs.ciao.cda.builder;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -12,13 +11,6 @@ import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
-
-import javax.xml.XMLConstants;
-import javax.xml.transform.Source;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
 
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
@@ -38,17 +30,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
-import org.xml.sax.SAXException;
 
 import uk.nhs.ciao.camel.CamelApplicationRunner;
 import uk.nhs.ciao.camel.CamelApplicationRunner.AsyncExecution;
 import uk.nhs.ciao.configuration.CIAOConfig;
 import uk.nhs.ciao.configuration.impl.MemoryCipProperties;
 import uk.nhs.ciao.docs.parser.ParsedDocument;
-import uk.nhs.interoperability.payloads.helpers.DocumentRenderer;
 import uk.nhs.interoperability.payloads.toc_edischarge_draftB.ClinicalDocument;
-import uk.nhs.interoperability.payloads.util.FileWriter;
-import uk.nhs.interoperability.payloads.util.PropertyReader;
 import uk.nhs.interoperability.payloads.util.xml.SchemaValidator;
 
 import com.google.common.base.Strings;
