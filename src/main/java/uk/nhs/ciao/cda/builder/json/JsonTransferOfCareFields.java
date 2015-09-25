@@ -35,15 +35,28 @@ import static uk.nhs.interoperability.payloads.util.Emptiables.*;
  *
  */
 public class JsonTransferOfCareFields extends TransferOfCareFields {
+	private boolean attachOriginalDocument;
+	
 	// Special-case properties to support 'single-entry collections' shortcuts in Jackson
 	private DocumentRecipient recipient;
 	private DocumentRecipient copyRecipient;
 	private CDADocumentParticipant participant;
 	
 	public JsonTransferOfCareFields() {
+		this.attachOriginalDocument = true;
+		
 		super.setRecipients(Lists.<DocumentRecipient>newArrayList());
 		super.setCopyRecipients(Lists.<DocumentRecipient>newArrayList());
 		super.setParticipants(Lists.<CDADocumentParticipant>newArrayList());
+	}
+	
+	public boolean isAttachOriginalDocument() {
+		return attachOriginalDocument;
+	}
+	
+	@JsonProperty
+	public void setAttachOriginalDocument(final boolean attachOriginalDocument) {
+		this.attachOriginalDocument = attachOriginalDocument;
 	}
 	
 	@Override
