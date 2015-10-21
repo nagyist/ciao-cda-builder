@@ -24,8 +24,6 @@ The details of the JMS queues and document enrichers are specified at runtime th
 | --------------------- | -------------- | ------- |
 | Transfer of Care | [TransferOfCarePayloadHandler](./src/main/java/uk/nhs/ciao/cda/builder/processor/TransferOfCarePayloadHandler.java) | `urn:nhs-itk:interaction:primaryRecipienteDischargeInpatientDischargeSummaryDocument-v1-0` |
 
-For more advanced usages, a custom document enricher can be integrated by implementing one of the enricher Java interfaces and providing a suitable spring XML configuration on the classpath.
-
 Configuration
 -------------
 
@@ -37,7 +35,7 @@ On application start-up, a series of Spring Framework XML files are used to cons
 
 The configuration is split into multiple XML files, each covering a separate area of the application. These files are selectively included at runtime via CIAO properties, allowing alternative technologies and/or implementations to be chosen. Each imported XML file can support a different set of CIAO properties.
 
-The Spring XML files are loaded from the classpath under the [META-INF/spring](./ciao-docs-enricher/src/main/resources/META-INF/spring) package.
+The Spring XML files are loaded from the classpath under the [META-INF/spring](./src/main/resources/META-INF/spring) package.
 
 **Core:**
 
@@ -135,7 +133,7 @@ You can then compile the module via:
 
 	mvn clean install -P bin-archive
 
-This will compile a number of related modules - the main CIP module is `ciao-cda-builder`, and the full binary archive (with dependencies) can be found at `ciao-docs-enricher\target\ciao-cda-builder-{version}-bin.zip`. To run the CIP, unpack this zip to a directory of your choosing and follow the instructions in the README.txt.
+This will compile a number of related modules - the main CIP module is `ciao-cda-builder`, and the full binary archive (with dependencies) can be found at `target\ciao-cda-builder-{version}-bin.zip`. To run the CIP, unpack this zip to a directory of your choosing and follow the instructions in the README.txt.
 
 The CIP requires access to various file system directories and network ports (dependent on the selected configuration):
 
