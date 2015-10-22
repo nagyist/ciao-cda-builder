@@ -4,7 +4,7 @@
 
 ## Introduction
 
-The purpose of this CIP is to convert an incoming [parsed document](https://github.com/nhs-ciao/ciao-docs-parser/ciao-docs-parser-model) into one of the [ITK](http://systems.hscic.gov.uk/interop/itk)-specified [CDA](http://www.hl7.org.uk/version3group/cda.asp) document formats.
+The purpose of this CIP is to convert an incoming [parsed document](https://github.com/nhs-ciao/ciao-docs-parser/blob/master/docs/parsed-document.md) into one of the [ITK](http://systems.hscic.gov.uk/interop/itk)-specified [CDA](http://www.hl7.org.uk/version3group/cda.asp) document formats.
 
 `ciao-cda-builder` is built on top of [Apache Camel](http://camel.apache.org/) and [Spring Framework](http://projects.spring.io/spring-framework/), and can be run as a stand-alone Java application, or via [Docker](https://www.docker.com/). The [ITK Payloads](https://bitbucket.org/itk/itk-payloads) library is used to build the outgoing CDA documents.
 
@@ -12,7 +12,7 @@ Each application can host multiple [routes](http://camel.apache.org/routes.html)
 
 >   input queue (JMS) -\> [JsonToCDADocumentTransformer](./src/main/java/uk/nhs/ciao/cda/builder/processor/JsonToCDADocumentTransformer.java) -\> output queue (JMS)
 
--	*The input and output queues both use the JSON-encoded representation of [ParsedDocument](https://github.com/nhs-ciao/ciao-docs-parser/ciao-docs-parser-model/src/main/java/uk/nhs/ciao/docs/parser/ParsedDocument.java). In the output queue, `ParsedDocument.originalDocument` contains the constructed CDA document.*
+-	*The input and output queues both use the JSON-encoded representation of [ParsedDocument](https://github.com/nhs-ciao/ciao-docs-parser/blob/master/docs/parsed-document.md). In the output queue, `ParsedDocument.originalDocument` contains the constructed CDA document.*
 
 The details of the JMS queues and document enrichers are specified at runtime through a combination of [ciao-configuration](https://github.com/nhs-ciao/ciao-utils) properties and Spring XML files.
 
