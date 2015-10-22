@@ -86,6 +86,13 @@ The list of route names serves two purposes. Firstly it determines how many rout
 -   `processorId` - The Spring ID of the processor to use when converting documents
 -   `outputQueue` - Selects which queue to publish the constructed CDA documents to
 
+**In-progress Folder:**
+> Details of the in-progress folder structure are available in the `ciao-docs-finalizer` [state machine](https://github.com/nhs-ciao/ciao-docs-finalizer/blob/master/docs/state-machine.md) documentation.
+
+> `ciao-docs-parser` provides the [InProgressFolderManagerRoute](https://github.com/nhs-ciao/ciao-docs-parser/blob/master/ciao-docs-parser-model/src/main/java/uk/nhs/ciao/docs/parser/route/InProgressFolderManagerRoute.java) class to support storing control and event files in the in-progress directory.
+
+- `inProgressFolder` - Defines the root folder that *document upload process* events are written to.
+
 **Default Processor​:**
 
 >   The default processor configuration does not currently support any additional properties.
