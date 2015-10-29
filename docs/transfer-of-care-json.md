@@ -140,7 +140,7 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `encounterLocationName` | String |
 | `encounterLocationAddress` | *Unwrapped* [Address](#address) |
 
-### Transfer Of Care Document (extends Common Document Properties)
+### Transfer Of Care Document (extends [Common Document Properties](#common-document-properties))
 
 | Property Name | JSON Type |
 | ------------- | --------- |
@@ -193,7 +193,7 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `use` | String |
 | `nullFlavour` | String |
 | `description` | String |
-| `useablePeriod` | Date Range |
+| `useablePeriod` | [Date Range](#date-range) |
 
 ### Person Name
 
@@ -219,16 +219,16 @@ Through to millisecond with timezone precision:
 
 | Property Name | JSON Type |
 | ------------- | --------- |
-| `from` *or* `low` | Date Value |
-| `to` *or* `high` | Date Value |
-| `on` *or* `center` | Date Value |
+| `from` *or* `low` | [Date Value](#date-value) |
+| `to` *or* `high` | [Date Value](#date-value) |
+| `on` *or* `center` | [Date Value](#date-value) |
 
 ### Document Recipient
 
 | Property Name | JSON Type |
 | ------------- | --------- |
-| `name` | *unwrapped* Person Name |
-| `address` | Address |
+| `name` | *unwrapped* [Person Name](#person-name) |
+| `address` | [Address](#address) |
 | `telephone` | String |
 | `jobRole` | Enum String |
 | `odsCode` | String |
@@ -240,8 +240,8 @@ Through to millisecond with timezone precision:
 
 | Property Name | JSON Type |
 | ------------- | --------- |
-| `name` | *unwrapped* Person Name |
-| `address` | Address |
+| `name` | *unwrapped* [Person Name](#person-name) |
+| `address` | [Address](#address) |
 | `telephone` | String |
 | `odsCode` | String |
 | `organisationName` | String |
