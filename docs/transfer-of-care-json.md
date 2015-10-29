@@ -29,6 +29,35 @@ can be flattened to:
 ```json
 {
 	"properties": {
+		"recipient": {
+			"name":
+			{
+				"title": "Mr",
+				"fullName": "Peter Example"
+			},
+			"odsCode": "example-code"
+		}
+	}
+}
+```
+
+Additionally various nested objects (labelled as '*Unwrapped*`) can optionally be flattened into their parent objects. The Person Name object listed above supports unwrapping:
+```json
+{
+	"properties": {
+		"recipient": {
+			"nameTitle": "Mr",
+			"nameFullName": "Peter Example",
+			"odsCode": "example-code"
+		}
+	}
+}
+```
+
+As does the recipient object itself. The fully reduced JSON structure becomes:
+```json
+{
+	"properties": {
 		"recipientNameTitle": "Mr",
 		"recipientNameFullName": "Peter Example",
 		"recipientODSCode": "example-code"
@@ -49,6 +78,109 @@ can be flattened to:
 | `properties.copyRecipient${property}` | `properties.copyRecipients[0].${property}` |
 | `properties.participant${property}` | `properties.participants[0].${property}` |
 
+### Common Document Properties
+
+| Property Name | JSON Type |
+| ------------- | --------- |
+| `documentTitle` | String |
+| `documentEffectiveTime` | Date Value |
+| `documentSetID` | String |
+| `documentVersionNumber` | int |
+| `patient` | *Unwrapped* Person Name |
+| `patientBirthDate` | Date Value |
+| `patientNHSNo` | String |
+| `patientNHSNoIsTraced` | Boolean |
+| `patientLocalID` | String |
+| `patientLocalIDAssigningAuthority` | String |
+| `patientGender` | Enum String |
+| `patientAddress` | *Unwrapped* Address |
+| `patientTelephone` | String |
+| `patientMobile` | String |
+| `usualGPOrgName` | String |
+| `usualGPODSCode` | String |
+| `usualGPTelephone` | String |
+| `usualGPFax` | String |
+| `usualGPAddress` | *Unwrapped* Address |
+| `timeAuthored` | Date Value |
+| `documentAuthorAddress` | *Unwrapped* Address |
+| `documentAuthorRole` | Enum String |
+| `documentAuthorSDSID` | String |
+| `documentAuthorSDSRoleID` | String |
+| `documentAuthorLocalID` | String |
+| `documentAuthorLocalIDAssigningAuthority` | String |
+| `documentAuthorTelephone` | String |
+| `documentAuthor` | *Unwrapped* Person Name |
+| `documentAuthorOrganisationODSID` | String |
+| `documentAuthorOrganisationName` | String |
+| `documentAuthorWorkgroupName` | String |
+| `documentAuthorWorkgroupSDSID` | String |
+| `documentAuthorWorkgroupLocalID` | String |
+| `documentAuthorWorkgroupLocalIDAssigningAuthority` | String |
+| `dataEntererSDSID` | String |
+| `dataEntererSDSRoleID` | String |
+| `dataEntererLocalID` | String |
+| `dataEntererLocalIDAssigningAuthority` | String |
+| `dataEnterer` | *Unwrapped* Person Name |
+| `custodianODSCode` | String |
+| `custodianOrganisationName` | String |
+| `recipients` | Document Recipient[] |
+| `copyRecipients` | Document Recipient[] |
+| `authenticatorSDSID` | String |
+| `authenticatorSDSRoleID` | String |
+| `authenticatorLocalID` | String |
+| `authenticatorLocalIDAssigningAuthority` | String |
+| `authenticator` | *Unwrapped* Person Name |
+| `authenticatedTime` | Date Value |
+| `participants` | CDA Document Participant[] |
+| `consent` | Enum String |
+| `encounterFromTime` | Date Value |
+| `encounterToTime` | Date Value |
+| `encounter` | *Unwrapped* Coded Value |
+| `encounterLocation` | *Unwrapped* Coded Value |
+| `encounterLocationName` | String |
+| `encounterLocationAddress` | *Unwrapped* Address |
+
+### Transfer Of Care Document (extends Common Document Properties)
+
+| Property Name | JSON Type |
+| ------------- | --------- |
+| `careSetting` | Enum String |
+| `admissionDetails` | String |
+| `allergies` | String |
+| `assessments` | String |
+| `clinicalSummary` | String |
+| `diagnoses` | String |
+| `dischargeDetails` | String |
+| `informationGiven` | String |
+| `investigations` | String |
+| `legal` | String |
+| `medications` | String |
+| `research` | String |
+| `concerns` | String |
+| `personCompletingRecord` | String |
+| `plan` | String |
+| `procedures` | String |
+| `alerts` | String |
+| `socialContext` | String |
+| `medicationsPharmacistScreeningAuthor` | *Unwrapped* Person Name |
+| `medicationsPharmacistScreeningAuthorTelephone` | String |
+| `medicationsPharmacistScreeningDate` | Date Value |
+| `medicationsPharmacistScreeningAuthorOrgName` | String |
+| `medicationsPharmacistScreeningAuthorODSCode` | String |
+| `attachOriginalDocument` | boolean |
+| `recipient` | *Unwrapped* Document Recipient |
+| `copyRecipient` | *Unwrapped* Document Recipient |
+| `participant` | *Unwrapped* CDA Document Participant |
+
+### Coded Value
+
+| Property Name | JSON Type |
+| ------------- | --------- |
+| `code` | String |
+| `displayName` | String |
+| `oid` | String |
+| `reference` | String |
+
 ### Address
 
 | Property Name | JSON Type |
@@ -61,7 +193,7 @@ can be flattened to:
 | `use` | String |
 | `nullFlavour` | String |
 | `description` | String |
-| `useablePeriod` | DateRange |
+| `useablePeriod` | Date Range |
 
 ### Person Name
 
@@ -73,17 +205,23 @@ can be flattened to:
 | `nameType` | String |
 | `nullFlavour` | String |
 
-### Date String
+### Date Value
 
-Date strings are encoded using supported HL7 formats: from year precision `yyyy`, through to millisecond with timezone precision `yyyyMMddHHmmss.SZ`.
+Date values are encoded as string using supported HL7 formats.
+
+From year precision:
+> `yyyy`
+
+Through to millisecond with timezone precision:
+> `yyyyMMddHHmmss.SZ`.
 
 ### Date Range
 
 | Property Name | JSON Type |
 | ------------- | --------- |
-| `from` *or* `low` | Date String |
-| `to` *or* `high` | Date String |
-| `on` *or* `center` | Date String |
+| `from` *or* `low` | Date Value |
+| `to` *or* `high` | Date Value |
+| `on` *or* `center` | Date Value |
 
 ### Document Recipient
 
@@ -98,7 +236,7 @@ Date strings are encoded using supported HL7 formats: from year precision `yyyy`
 | `sdsId` | String |
 | `sdsRoleId` | String |
 
-### Document Participant
+### CDA Document Participant
 
 | Property Name | JSON Type |
 | ------------- | --------- |
