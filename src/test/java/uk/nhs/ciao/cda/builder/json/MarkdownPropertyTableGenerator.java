@@ -3,14 +3,22 @@ package uk.nhs.ciao.cda.builder.json;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import uk.nhs.ciao.cda.builder.json.JacksonMixins.JsonTransferOfCareFieldsMixin;
 import uk.nhs.interoperability.payloads.CodedValue;
+import uk.nhs.interoperability.payloads.DateValue;
+import uk.nhs.interoperability.payloads.commontypes.Address;
+import uk.nhs.interoperability.payloads.commontypes.DateRange;
+import uk.nhs.interoperability.payloads.commontypes.PersonName;
 import uk.nhs.interoperability.payloads.helpers.CDACommonFields;
+import uk.nhs.interoperability.payloads.helpers.CDADocumentParticipant;
+import uk.nhs.interoperability.payloads.helpers.DocumentRecipient;
 import uk.nhs.interoperability.payloads.helpers.TransferOfCareFields;
+
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.google.common.collect.Maps;
 
@@ -21,13 +29,44 @@ import com.google.common.collect.Maps;
  */
 public class MarkdownPropertyTableGenerator {
 	public static void main(final String[] args) throws Exception {
-		writeTable("Common Document Properties", CDACommonFields.class,  JsonTransferOfCareFieldsMixin.class);
-		writeTable("Transfer Of Care Document (extends Common Document Properties)", TransferOfCareFields.class, JsonTransferOfCareFieldsMixin.class);
-		writeTable(null, JsonTransferOfCareFields.class, JsonTransferOfCareFieldsMixin.class);
-		writeTable(CodedValue.class, CodedValueMixin.class);
+		@SuppressWarnings("unchecked")
+		final List<? extends Class<?>> types = Arrays.asList(CodedValue.class, Address.class, PersonName.class,
+				DateValue.class, DateRange.class, DocumentRecipient.class, CDADocumentParticipant.class);
+		final MarkdownPropertyTableGenerator generator = new MarkdownPropertyTableGenerator(types);
+		
+		generator.writeTable("Common Document Properties", CDACommonFields.class,  JsonTransferOfCareFieldsMixin.class);
+		generator.writeTable("Transfer Of Care Document (extends Common Document Properties)", TransferOfCareFields.class, JsonTransferOfCareFieldsMixin.class);
+		generator.writeTable(null, JsonTransferOfCareFields.class, JsonTransferOfCareFieldsMixin.class);
+		generator.writeTable(CodedValue.class, CodedValueMixin.class);
 	}
 	
-	public static Map<String, String> extract(final Class<?> clazz, final Class<?> mixin) {
+	private Map<Class<?>, String> typeLinks;
+	
+	public MarkdownPropertyTableGenerator(final List<? extends Class<?>> types) {
+		this.typeLinks = createTypeLinks(types);
+	}
+	
+	private Map<Class<?>, String> createTypeLinks(final List<? extends Class<?>> types) {
+		final Map<Class<?>, String> links = Maps.newLinkedHashMap();
+		
+		for (final Class<?> type: types) {
+			final String name = splitCamelCase(type.getSimpleName());
+			final String fragment = "#" + name.replaceAll(" ", "-").toLowerCase();
+			links.put(type, "[" + name + "](" + fragment + ")");
+		}
+		
+		return links;
+	}
+	
+	public String type(final Class<?> type) {
+		String value = typeLinks.get(type);
+		if (value == null) {
+			value = splitCamelCase(type.getSimpleName());
+		}
+		return value;
+	}
+	
+	public Map<String, String> extract(final Class<?> clazz, final Class<?> mixin) {
 		final Map<String, String> map = Maps.newLinkedHashMap();
 		final Map<String, String> unwrappedProperties = findUnwrappedProperties(clazz);
 		if (mixin != null) {
@@ -38,10 +77,10 @@ public class MarkdownPropertyTableGenerator {
 			field.setAccessible(true);
 			
 			String name = field.getName();
-			String value = splitCamelCase(field.getType().getSimpleName());
+			String value = type(field.getType());
 			if (List.class.isAssignableFrom(field.getType())) {
 				final ParameterizedType type = (ParameterizedType)field.getGenericType();
-				value = splitCamelCase(((Class<?>)type.getActualTypeArguments()[0]).getSimpleName()) + "[]";
+				value = type(((Class<?>)type.getActualTypeArguments()[0])) + "[]";
 			} else if (Enum.class.isAssignableFrom(field.getType())) {
 				value = "Enum String";
 			}
@@ -55,9 +94,9 @@ public class MarkdownPropertyTableGenerator {
 		}
 		
 		return map;
-	}
+	}	
 	
-	public static Map<String, String> findUnwrappedProperties(final Class<?> clazz) {
+	public Map<String, String> findUnwrappedProperties(final Class<?> clazz) {
 		final Map<String, String> unwrappedProperties = Maps.newLinkedHashMap();
 		for (final Field field: clazz.getDeclaredFields()) {
 			field.setAccessible(true);
@@ -77,11 +116,11 @@ public class MarkdownPropertyTableGenerator {
 		return unwrappedProperties;
 	}
 	
-	public static void writeTable(final Class<?> clazz, final Class<?> mixin) {
+	public void writeTable(final Class<?> clazz, final Class<?> mixin) {
 		writeTable(splitCamelCase(clazz.getSimpleName()), clazz, mixin);
 	}
 	
-	public static void writeTable(final String name, final Class<?> clazz, final Class<?> mixin) {
+	public void writeTable(final String name, final Class<?> clazz, final Class<?> mixin) {
 		if (name != null) {
 			System.out.println("### " + name);
 			System.out.println();

@@ -83,33 +83,33 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | Property Name | JSON Type |
 | ------------- | --------- |
 | `documentTitle` | String |
-| `documentEffectiveTime` | Date Value |
+| `documentEffectiveTime` | [Date Value](#date-value) |
 | `documentSetID` | String |
 | `documentVersionNumber` | int |
-| `patient` | *Unwrapped* Person Name |
-| `patientBirthDate` | Date Value |
+| `patient` | *Unwrapped* [Person Name](#person-name) |
+| `patientBirthDate` | [Date Value](#date-value) |
 | `patientNHSNo` | String |
 | `patientNHSNoIsTraced` | Boolean |
 | `patientLocalID` | String |
 | `patientLocalIDAssigningAuthority` | String |
 | `patientGender` | Enum String |
-| `patientAddress` | *Unwrapped* Address |
+| `patientAddress` | *Unwrapped* [Address](#address) |
 | `patientTelephone` | String |
 | `patientMobile` | String |
 | `usualGPOrgName` | String |
 | `usualGPODSCode` | String |
 | `usualGPTelephone` | String |
 | `usualGPFax` | String |
-| `usualGPAddress` | *Unwrapped* Address |
-| `timeAuthored` | Date Value |
-| `documentAuthorAddress` | *Unwrapped* Address |
+| `usualGPAddress` | *Unwrapped* [Address](#address) |
+| `timeAuthored` | [Date Value](#date-value) |
+| `documentAuthorAddress` | *Unwrapped* [Address](#address) |
 | `documentAuthorRole` | Enum String |
 | `documentAuthorSDSID` | String |
 | `documentAuthorSDSRoleID` | String |
 | `documentAuthorLocalID` | String |
 | `documentAuthorLocalIDAssigningAuthority` | String |
 | `documentAuthorTelephone` | String |
-| `documentAuthor` | *Unwrapped* Person Name |
+| `documentAuthor` | *Unwrapped* [Person Name](#person-name) |
 | `documentAuthorOrganisationODSID` | String |
 | `documentAuthorOrganisationName` | String |
 | `documentAuthorWorkgroupName` | String |
@@ -120,25 +120,25 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `dataEntererSDSRoleID` | String |
 | `dataEntererLocalID` | String |
 | `dataEntererLocalIDAssigningAuthority` | String |
-| `dataEnterer` | *Unwrapped* Person Name |
+| `dataEnterer` | *Unwrapped* [Person Name](#person-name) |
 | `custodianODSCode` | String |
 | `custodianOrganisationName` | String |
-| `recipients` | Document Recipient[] |
-| `copyRecipients` | Document Recipient[] |
+| `recipients` | [Document Recipient](#document-recipient)[] |
+| `copyRecipients` | [Document Recipient](#document-recipient)[] |
 | `authenticatorSDSID` | String |
 | `authenticatorSDSRoleID` | String |
 | `authenticatorLocalID` | String |
 | `authenticatorLocalIDAssigningAuthority` | String |
-| `authenticator` | *Unwrapped* Person Name |
-| `authenticatedTime` | Date Value |
-| `participants` | CDA Document Participant[] |
+| `authenticator` | *Unwrapped* [Person Name](#person-name) |
+| `authenticatedTime` | [Date Value](#date-value) |
+| `participants` | [CDA Document Participant](#cda-document-participant)[] |
 | `consent` | Enum String |
-| `encounterFromTime` | Date Value |
-| `encounterToTime` | Date Value |
-| `encounter` | *Unwrapped* Coded Value |
-| `encounterLocation` | *Unwrapped* Coded Value |
+| `encounterFromTime` | [Date Value](#date-value) |
+| `encounterToTime` | [Date Value](#date-value) |
+| `encounter` | *Unwrapped* [Coded Value](#coded-value) |
+| `encounterLocation` | *Unwrapped* [Coded Value](#coded-value) |
 | `encounterLocationName` | String |
-| `encounterLocationAddress` | *Unwrapped* Address |
+| `encounterLocationAddress` | *Unwrapped* [Address](#address) |
 
 ### Transfer Of Care Document (extends Common Document Properties)
 
@@ -162,15 +162,15 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `procedures` | String |
 | `alerts` | String |
 | `socialContext` | String |
-| `medicationsPharmacistScreeningAuthor` | *Unwrapped* Person Name |
+| `medicationsPharmacistScreeningAuthor` | *Unwrapped* [Person Name](#person-name) |
 | `medicationsPharmacistScreeningAuthorTelephone` | String |
-| `medicationsPharmacistScreeningDate` | Date Value |
+| `medicationsPharmacistScreeningDate` | [Date Value](#date-value) |
 | `medicationsPharmacistScreeningAuthorOrgName` | String |
 | `medicationsPharmacistScreeningAuthorODSCode` | String |
 | `attachOriginalDocument` | boolean |
-| `recipient` | *Unwrapped* Document Recipient |
-| `copyRecipient` | *Unwrapped* Document Recipient |
-| `participant` | *Unwrapped* CDA Document Participant |
+| `recipient` | *Unwrapped* [Document Recipient](#document-recipient) |
+| `copyRecipient` | *Unwrapped* [Document Recipient](#document-recipient) |
+| `participant` | *Unwrapped* [CDA Document Participant](#cda-document-participant) |
 
 ### Coded Value
 
