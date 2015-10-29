@@ -22,7 +22,7 @@ The details of the JMS queues and document enrichers are specified at runtime th
 
 | Specification | Handler | Interaction ID |
 | --------------------- | -------------- | ------- |
-| Transfer of Care | [TransferOfCarePayloadHandler](./src/main/java/uk/nhs/ciao/cda/builder/processor/TransferOfCarePayloadHandler.java) | `urn:nhs-itk:interaction:primaryRecipienteDischargeInpatientDischargeSummaryDocument-v1-0` |
+| Transfer of Care ([json](docs/transfer-of-care-json.md))| [TransferOfCarePayloadHandler](./src/main/java/uk/nhs/ciao/cda/builder/processor/TransferOfCarePayloadHandler.java) | `urn:nhs-itk:interaction:primaryRecipienteDischargeInpatientDischargeSummaryDocument-v1-0` |
 
 Configuration
 -------------
