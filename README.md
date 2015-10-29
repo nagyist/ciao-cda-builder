@@ -20,9 +20,9 @@ The details of the JMS queues and document enrichers are specified at runtime th
 
 > Incoming documents can specify which type of CDA document to build by include the corresponding interaction id using the `itkHandlingSpec` property on the incoming document.
 
-| Specification | Handler | Interaction ID |
+| Specification | Input Format | Interaction ID |
 | --------------------- | -------------- | ------- |
-| Transfer of Care ([json](docs/transfer-of-care-json.md))| [TransferOfCarePayloadHandler](./src/main/java/uk/nhs/ciao/cda/builder/processor/TransferOfCarePayloadHandler.java) | `urn:nhs-itk:interaction:primaryRecipienteDischargeInpatientDischargeSummaryDocument-v1-0` |
+| Transfer of Care | [transfer-of-care-json](docs/transfer-of-care-json.md) | `urn:nhs-itk:interaction:primaryRecipienteDischargeInpatientDischargeSummaryDocument-v1-0` |
 
 Configuration
 -------------
