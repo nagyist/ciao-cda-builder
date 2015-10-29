@@ -167,7 +167,6 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `medicationsPharmacistScreeningDate` | [Date Value](#date-value) |
 | `medicationsPharmacistScreeningAuthorOrgName` | String |
 | `medicationsPharmacistScreeningAuthorODSCode` | String |
-
 | `attachOriginalDocument` | boolean |
 | `recipient` | *Unwrapped* [Document Recipient](#document-recipient) |
 | `copyRecipient` | *Unwrapped* [Document Recipient](#document-recipient) |
