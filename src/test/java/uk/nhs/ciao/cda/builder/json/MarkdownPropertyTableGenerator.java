@@ -35,7 +35,7 @@ public class MarkdownPropertyTableGenerator {
 		final MarkdownPropertyTableGenerator generator = new MarkdownPropertyTableGenerator(types);
 		
 		generator.writeTable("Common Document Properties", CDACommonFields.class,  JsonTransferOfCareFieldsMixin.class);
-		generator.writeTable("Transfer Of Care Document (extends Common Document Properties)", TransferOfCareFields.class, JsonTransferOfCareFieldsMixin.class);
+		generator.writeTable("Transfer Of Care Document (extends [Common Document Properties](#common-document-properties))", TransferOfCareFields.class, JsonTransferOfCareFieldsMixin.class);
 		generator.writeTable(null, JsonTransferOfCareFields.class, JsonTransferOfCareFieldsMixin.class);
 		generator.writeTable(CodedValue.class, CodedValueMixin.class);
 	}
@@ -82,7 +82,7 @@ public class MarkdownPropertyTableGenerator {
 				final ParameterizedType type = (ParameterizedType)field.getGenericType();
 				value = type(((Class<?>)type.getActualTypeArguments()[0])) + "[]";
 			} else if (Enum.class.isAssignableFrom(field.getType())) {
-				value = "Enum String";
+				value = "Enum: " + field.getType().getSimpleName();
 			}
 			
 			if (unwrappedProperties.containsKey(name)) {

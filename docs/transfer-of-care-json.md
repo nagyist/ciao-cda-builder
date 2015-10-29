@@ -92,7 +92,7 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `patientNHSNoIsTraced` | Boolean |
 | `patientLocalID` | String |
 | `patientLocalIDAssigningAuthority` | String |
-| `patientGender` | Enum String |
+| `patientGender` | Enum: Sex |
 | `patientAddress` | *Unwrapped* [Address](#address) |
 | `patientTelephone` | String |
 | `patientMobile` | String |
@@ -103,7 +103,7 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `usualGPAddress` | *Unwrapped* [Address](#address) |
 | `timeAuthored` | [Date Value](#date-value) |
 | `documentAuthorAddress` | *Unwrapped* [Address](#address) |
-| `documentAuthorRole` | Enum String |
+| `documentAuthorRole` | Enum: JobRoleName |
 | `documentAuthorSDSID` | String |
 | `documentAuthorSDSRoleID` | String |
 | `documentAuthorLocalID` | String |
@@ -132,7 +132,7 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `authenticator` | *Unwrapped* [Person Name](#person-name) |
 | `authenticatedTime` | [Date Value](#date-value) |
 | `participants` | [CDA Document Participant](#cda-document-participant)[] |
-| `consent` | Enum String |
+| `consent` | Enum: DocumentConsentSnCT |
 | `encounterFromTime` | [Date Value](#date-value) |
 | `encounterToTime` | [Date Value](#date-value) |
 | `encounter` | *Unwrapped* [Coded Value](#coded-value) |
@@ -144,7 +144,7 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 
 | Property Name | JSON Type |
 | ------------- | --------- |
-| `careSetting` | Enum String |
+| `careSetting` | Enum: CorrespondenceCaresettingtype |
 | `admissionDetails` | String |
 | `allergies` | String |
 | `assessments` | String |
@@ -167,6 +167,7 @@ As does the recipient object itself. The fully reduced JSON structure becomes:
 | `medicationsPharmacistScreeningDate` | [Date Value](#date-value) |
 | `medicationsPharmacistScreeningAuthorOrgName` | String |
 | `medicationsPharmacistScreeningAuthorODSCode` | String |
+
 | `attachOriginalDocument` | boolean |
 | `recipient` | *Unwrapped* [Document Recipient](#document-recipient) |
 | `copyRecipient` | *Unwrapped* [Document Recipient](#document-recipient) |
@@ -230,7 +231,7 @@ Through to millisecond with timezone precision:
 | `name` | *unwrapped* [Person Name](#person-name) |
 | `address` | [Address](#address) |
 | `telephone` | String |
-| `jobRole` | Enum String |
+| `jobRole` | Enum: JobRoleName |
 | `odsCode` | String |
 | `organisationName` | String |
 | `sdsId` | String |
@@ -247,8 +248,8 @@ Through to millisecond with timezone precision:
 | `organisationName` | String |
 | `sdsId` | String |
 | `sdsRoleId` | String |
-| `type` | Enum String |
-| `roleClass` | Enum String |
+| `type` | Enum: ParticipationType |
+| `roleClass` | Enum: RoleClassAssociative |
 
 ## Example
 
